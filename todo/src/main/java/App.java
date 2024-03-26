@@ -31,10 +31,9 @@ public class App {
             1. Add task
             2. Update task
             3. Remove task
-            4. Print tasks
+            4. See all tasks
             5. See task
-            6. See all tasks
-            7. Exit
+            6. Exit
             """);
     }
 
