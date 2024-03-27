@@ -15,6 +15,8 @@ class TaskServiceTest {
         taskService = new TaskService();
     }
 
+    //equivalence partitioning
+
     @Test
     void givenValidIndex_whenUpdateTask_thenModifyTasks() {
         //prepare data
@@ -32,13 +34,26 @@ class TaskServiceTest {
     }
 
     @Test
-    void givenInvalidIndex_whenUpdateTask_thenThrowException() {
+    void givenNegativeIndex_whenUpdateTask_thenThrowException() {
         //prepare data
         taskService.addTask(new Task("task1", Priority.HIGH, 1));
         taskService.addTask(new Task("task2", Priority.HIGH, 2));
         taskService.addTask(new Task("task3", Priority.HIGH, 3));
 
         Task updatedTask = new Task("new task1", Priority.LOW, 4);
+
+        //call method
+        assertThrows(IllegalArgumentException.class, () -> taskService.updateTask(-1, updatedTask));
+    }
+
+    @Test
+    void givenTooHighIndex_whenUpdateTask_thenThrowException() {
+        //prepare data
+        taskService.addTask(new Task("task1", Priority.HIGH, 1));
+        taskService.addTask(new Task("task2", Priority.HIGH, 2));
+        taskService.addTask(new Task("task3", Priority.HIGH, 3));
+
+        Task updatedTask = new Task("new task1", Priority.LOW, -1);
 
         //call method
         assertThrows(IllegalArgumentException.class, () -> taskService.updateTask(3, updatedTask));
