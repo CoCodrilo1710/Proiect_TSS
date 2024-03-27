@@ -4,17 +4,17 @@ import com.fasterxml.jackson.core.exc.StreamWriteException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
+import model.Consts;
 import model.Task;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 public class TaskService {
-    private final String SAVE_FILE_LOCATION = "src/main/resources/tasks.json";
-
-    @Getter
-    private List<Task> tasks;
+    private final List<Task> tasks = new ArrayList<>();
 
     public void addTask(Task task) {
         tasks.add(task);
@@ -53,7 +53,7 @@ public class TaskService {
         ObjectMapper objectMapper = new ObjectMapper();
 
         try {
-            objectMapper.writeValue(new File(SAVE_FILE_LOCATION), tasks);
+            objectMapper.writeValue(new File(Consts.SAVE_FILE_LOCATION), tasks);
         } catch (StreamWriteException | DatabindException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {

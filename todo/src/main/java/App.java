@@ -60,7 +60,12 @@ public class App {
             """);
         Priority priority = Priority.fromLevel(scanner.nextInt());
 
-        Task task = new Task(description, priority);
+        prettyPrint("""
+            Enter task hour estimate:
+            """);
+        Integer hours = scanner.nextInt();
+
+        Task task = new Task(description, priority, hours);
         taskService.addTask(task);
     }
     
@@ -87,6 +92,9 @@ public class App {
             4. CANCELLED
             """);
         updated.setStatus(Status.fromLevel(scanner.nextInt()));
+
+        prettyPrint("Enter task's new hour estimate:");
+        updated.setHourEstimate(scanner.nextInt());
 
         taskService.updateTask(index, updated);
     }
