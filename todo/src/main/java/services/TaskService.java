@@ -44,6 +44,10 @@ public class TaskService {
     }
 
     public void printTasks() {
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks");
+            return;
+        }
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println(i + 1 + ". " + tasks.get(i).getDescription());
         }
@@ -53,7 +57,15 @@ public class TaskService {
         ObjectMapper objectMapper = new ObjectMapper();
 
         try {
+            File directory = new File("src/main/resources");
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
             objectMapper.writeValue(new File(Consts.SAVE_FILE_LOCATION), tasks);
+
+
+            //System.out.println("Task saved to file");
+
         } catch (StreamWriteException | DatabindException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {

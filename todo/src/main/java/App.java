@@ -125,7 +125,10 @@ public class App {
             case 3 -> removeTask();
             case 4 -> printTasks();
             case 5 -> seeTask();
-            case 6 -> prettyPrint("Goodbye!");
+            case 6 -> {
+                prettyPrint("Goodbye!");
+                System.exit(0);
+            }
         }
     }
 
