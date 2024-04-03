@@ -1,0 +1,7 @@
+
+	java:S112F"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òιόÿÿÿÿ8ÿ‹ύθ1J$f4a1c5d5-b78f-4ea2-901f-f860f562c19f
+
+java:S1192"TDefine a constant instead of duplicating this literal "Invalid task number" 3 times.(ξΓ†ώϋÿÿÿÿ8‚‘‹ύθ1J$475d92b2-96d1-4d4d-be7f-915c6db00951
+m	java:S1060"+Replace this use of System.out by a logger.(ρ§ι‡8¨‘‹ύθ1J$77586a7e-4cde-4e72-aeff-193611932669
+G	java:S1064"+Replace this use of System.out by a logger.(Ύγ8‚’Ωύθ1
+ƒ	java:S125C"<This block of commented-out lines of code should be removed.(χν¦Ϊϋÿÿÿÿ8Λ‘‹ύθ1J$31cd5940-92dc-4f46-bcb7-879dccb450ce
