@@ -74,15 +74,13 @@ class TaskServiceTest {
     @Test
     void givenValidIndex_whenFindWhatTaskToDoNext_thenFindTask() {
         // prepare data
-        List<Task> tasks = List.of(
-                new Task("Task 1", Priority.HIGH, 3),
-                new Task("Task 2", Priority.MEDIUM, 2),
-                new Task("Task 3", Priority.LOW, 1)
-        );
+        taskService.addTask(new Task("task1", Priority.HIGH, 1));
+        taskService.addTask(new Task("task2", Priority.HIGH, 2));
+        taskService.addTask(new Task("task3", Priority.HIGH, 3));
 
         Integer numberOfTasks = 3;
-        Task returnedTask = taskService.findWhatTaskToDoNext(numberOfTasks, tasks);
-        Task expectedTask = tasks.get(0);
+        Task returnedTask = taskService.findWhatTaskToDoNext(numberOfTasks);
+        Task expectedTask = taskService.getByIndex(0);
 
         assertEquals(expectedTask, returnedTask);
     }
@@ -90,10 +88,9 @@ class TaskServiceTest {
     @Test
     void givenTooLowIndex_whenFindWhatTaskToDoNext_thenThrowException(){
         // prepare data
-        List<Task> tasks = new ArrayList<>();
         Integer numberOfTasks = 0;
 
-        assertThrows(IllegalArgumentException.class, () -> taskService.findWhatTaskToDoNext(numberOfTasks, tasks));
+        assertThrows(IllegalArgumentException.class, () -> taskService.findWhatTaskToDoNext(numberOfTasks));
     }
 
 
@@ -139,6 +136,16 @@ class TaskServiceTest {
 
         assertTrue(taskService.getTasks().isEmpty());
     }
+
+    @Test
+    void givenLowestValidIndex_whenFindWhatTaskToDoNext_thenFindTask(){
+        // prepare data
+        taskService.addTask(new Task("task1", Priority.HIGH, 1));
+        Integer numberOfTasks = 1;
+
+        assertThrows(IllegalArgumentException.class, () -> taskService.findWhatTaskToDoNext(0 ));
+    }
+
 
     // Decision Coverage
 

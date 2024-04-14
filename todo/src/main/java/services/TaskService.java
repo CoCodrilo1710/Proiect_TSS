@@ -74,41 +74,45 @@ public class TaskService {
         }
     }
 
-    public Task findWhatTaskToDoNext(int numberOfTasks, List<Task> tasks) {
-
-        // numberOfTasks must be between 1 and 20
-        if (tasks.isEmpty() || numberOfTasks <= 0 || numberOfTasks > tasks.size()) {
-            throw new IllegalArgumentException("Invalid number of tasks or empty list");
-        }
-
+    public Task findWhatTaskToDoNext(int numberOfTasks ) {
         Task highestPriorityShortestEstimateTask = null;
 
-        for (int i = 0; i < numberOfTasks; i++) {
-            Task task = tasks.get(i);
+        //numberoftasks must be the same as the size of the lists
+        if (numberOfTasks != tasks.size()) {
+            throw new IllegalArgumentException("Number of tasks does not match the size of the tasks list");
+        }
+        else {
+            // numberOfTasks must be between 1 and 20
+            if (tasks.isEmpty() || numberOfTasks <= 0 || numberOfTasks > 20) {
+                throw new IllegalArgumentException("Invalid number of tasks or empty list");
+            }
+
+            for (int i = 0; i < numberOfTasks; i++) {
+                Task task = tasks.get(i);
 
 
-            // make sure it's not completed
-            if (task.getStatus() != Status.COMPLETE) {
+                // make sure it's not completed
+                if (task.getStatus() != Status.COMPLETE) {
 
-                // if no prior task was selected, select task
-                if (highestPriorityShortestEstimateTask == null) {
-                    highestPriorityShortestEstimateTask = task;
-                } else {
-                    // check to see if the task is of higher priority and if tasks have the same priority check time estimate
-                    if (task.getPriority().getLevel() > highestPriorityShortestEstimateTask.getPriority().getLevel()) {
+                    // if no prior task was selected, select task
+                    if (highestPriorityShortestEstimateTask == null) {
                         highestPriorityShortestEstimateTask = task;
-                    } else if (task.getPriority() == highestPriorityShortestEstimateTask.getPriority() &&
-                            task.getTimeEstimate() < highestPriorityShortestEstimateTask.getTimeEstimate()) {
-                        highestPriorityShortestEstimateTask = task;
+                    } else {
+                        // check to see if the task is of higher priority and if tasks have the same priority check time estimate
+                        if (task.getPriority().getLevel() > highestPriorityShortestEstimateTask.getPriority().getLevel()) {
+                            highestPriorityShortestEstimateTask = task;
+                        } else if (task.getPriority() == highestPriorityShortestEstimateTask.getPriority() &&
+                                task.getTimeEstimate() < highestPriorityShortestEstimateTask.getTimeEstimate()) {
+                            highestPriorityShortestEstimateTask = task;
+                        }
                     }
                 }
             }
-        }
 
-        if (highestPriorityShortestEstimateTask == null) {
-            throw new IllegalStateException("No available tasks to do");
-        }
+            if (highestPriorityShortestEstimateTask == null) {
+                throw new IllegalStateException("No available tasks to do");
+            }
 
-        return highestPriorityShortestEstimateTask;
+        }return highestPriorityShortestEstimateTask;
     }
 }
