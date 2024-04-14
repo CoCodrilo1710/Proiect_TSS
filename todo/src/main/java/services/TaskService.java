@@ -75,9 +75,8 @@ public class TaskService {
     }
 
     public Task findWhatTaskToDoNext(int numberOfTasks, List<Task> tasks) {
-
         // numberOfTasks must be between 1 and 20
-        if (tasks.isEmpty() || numberOfTasks <= 0 || numberOfTasks > tasks.size()) {
+        if (tasks.isEmpty() || numberOfTasks <= 0 || numberOfTasks > 20) {
             throw new IllegalArgumentException("Invalid number of tasks or empty list");
         }
 
