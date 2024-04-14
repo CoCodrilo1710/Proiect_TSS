@@ -1,12 +1,14 @@
 package services;
 
 import model.Priority;
+import model.Status;
 import model.Task;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -66,6 +68,19 @@ class TaskServiceTest {
         assertThrows(IllegalArgumentException.class, () -> taskService.updateTask(3, updatedTask));
     }
 
+    // Functional testing for findWhatTaskToDoNext
+    // Equivalence Partitioning
+    void givenValidIndex_whenFindWhatTaskToDoNext_thenFindTask(){
+        // prepare data
+        List<Task> tasks = List.of(
+                new Task("Task 1", Priority.HIGH, 3),
+                new Task("Task 2", Priority.MEDIUM, 2),
+                new Task("Task 3", Priority.LOW, 1)
+        );
+
+        Integer numberOfTasks = 3;
+        Task task = taskService.findWhatTaskToDoNext(numberOfTasks, tasks);
+    }
 
 
     // Boundary Value Analysis

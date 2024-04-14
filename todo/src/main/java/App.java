@@ -118,6 +118,7 @@ public class App {
         prettyPrint(taskService.getByIndex(index).toString());
     }
 
+
     public void chooseOption(int option) {
         switch (option) {
             case 1 -> addTask();

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import model.Consts;
+import model.Status;
 import model.Task;
 
 import java.io.File;
@@ -71,5 +72,43 @@ public class TaskService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public Task findWhatTaskToDoNext(int numberOfTasks, List<Task> tasks) {
+
+        // numberOfTasks must be between 1 and 20
+        if (tasks.isEmpty() || numberOfTasks <= 0 || numberOfTasks > tasks.size()) {
+            throw new IllegalArgumentException("Invalid number of tasks or empty list");
+        }
+
+        Task highestPriorityShortestEstimateTask = null;
+
+        for (int i = 0; i < numberOfTasks; i++) {
+            Task task = tasks.get(i);
+
+
+            // make sure it's not completed
+            if (task.getStatus() != Status.COMPLETE) {
+
+                // if no prior task was selected, select task
+                if (highestPriorityShortestEstimateTask == null) {
+                    highestPriorityShortestEstimateTask = task;
+                } else {
+                    // check to see if the task is of higher priority and if tasks have the same priority check time estimate
+                    if (task.getPriority().compareTo(highestPriorityShortestEstimateTask.getPriority()) > 0) {
+                        highestPriorityShortestEstimateTask = task;
+                    } else if (task.getPriority() == highestPriorityShortestEstimateTask.getPriority() &&
+                            task.getTimeEstimate() < highestPriorityShortestEstimateTask.getTimeEstimate()) {
+                        highestPriorityShortestEstimateTask = task;
+                    }
+                }
+            }
+        }
+
+        if (highestPriorityShortestEstimateTask == null) {
+            throw new IllegalStateException("No available tasks to do");
+        }
+
+        return highestPriorityShortestEstimateTask;
     }
 }
