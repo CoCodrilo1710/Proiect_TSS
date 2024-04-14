@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -70,7 +71,8 @@ class TaskServiceTest {
 
     // Functional testing for findWhatTaskToDoNext
     // Equivalence Partitioning
-    void givenValidIndex_whenFindWhatTaskToDoNext_thenFindTask(){
+    @Test
+    void givenValidIndex_whenFindWhatTaskToDoNext_thenFindTask() {
         // prepare data
         List<Task> tasks = List.of(
                 new Task("Task 1", Priority.HIGH, 3),
@@ -79,7 +81,19 @@ class TaskServiceTest {
         );
 
         Integer numberOfTasks = 3;
-        Task task = taskService.findWhatTaskToDoNext(numberOfTasks, tasks);
+        Task returnedTask = taskService.findWhatTaskToDoNext(numberOfTasks, tasks);
+        Task expectedTask = tasks.get(0);
+
+        assertEquals(expectedTask, returnedTask);
+    }
+
+    @Test
+    void givenTooLowIndex_whenFindWhatTaskToDoNext_thenThrowException(){
+        // prepare data
+        List<Task> tasks = new ArrayList<>();
+        Integer numberOfTasks = 0;
+
+        assertThrows(IllegalArgumentException.class, () -> taskService.findWhatTaskToDoNext(numberOfTasks, tasks));
     }
 
 

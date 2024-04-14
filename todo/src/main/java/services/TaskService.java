@@ -95,7 +95,7 @@ public class TaskService {
                     highestPriorityShortestEstimateTask = task;
                 } else {
                     // check to see if the task is of higher priority and if tasks have the same priority check time estimate
-                    if (task.getPriority().compareTo(highestPriorityShortestEstimateTask.getPriority()) > 0) {
+                    if (task.getPriority().getLevel() > highestPriorityShortestEstimateTask.getPriority().getLevel()) {
                         highestPriorityShortestEstimateTask = task;
                     } else if (task.getPriority() == highestPriorityShortestEstimateTask.getPriority() &&
                             task.getTimeEstimate() < highestPriorityShortestEstimateTask.getTimeEstimate()) {
