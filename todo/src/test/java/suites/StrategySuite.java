@@ -7,6 +7,10 @@ import org.junit.platform.suite.api.Suite;
 @SelectClasses({
         tests.BasicBoundaryValueAnalysisTests.class,
         tests.BasicCoverageTests.class,
-        tests.BasicEquivalencePartitioningTests.class})
+        tests.BasicEquivalencePartitioningTests.class,
+        tests.FindWhatTaskToDoNextTestEquivalencePartitioningTests.class,
+        tests.FindWhatTaskToDoNextTestBoundaryValueAnalysisTests.class,
+        tests.FindWhatTaskToDoNextTestDecisionCoverageTests.class
+})
 public class StrategySuite {
 }

@@ -1,24 +1,21 @@
-package services;
+package tests;
 
 import model.Priority;
 import model.Task;
+import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import services.TaskService;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class TaskServiceTest {
+public class FindWhatTaskToDoNextTestBoundaryValueAnalysisTests {
     TaskService taskService;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         taskService = new TaskService();
     }
-
-
 
     @Test
     void givenLowestValidIndex_whenFindWhatTaskToDoNext_thenFindTask(){
