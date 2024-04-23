@@ -53,7 +53,7 @@ public class BasicEquivalencePartitioningTests {
         taskService.addTask(new Task("task2", Priority.HIGH, 2));
         taskService.addTask(new Task("task3", Priority.HIGH, 3));
 
-        Task updatedTask = new Task("new task1", Priority.LOW, -1);
+        Task updatedTask = new Task("new task1", Priority.LOW, 4);
 
         //call method
         assertThrows(IllegalArgumentException.class, () -> taskService.updateTask(3, updatedTask));

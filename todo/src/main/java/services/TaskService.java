@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import model.Consts;
+import model.Priority;
 import model.Status;
 import model.Task;
 
@@ -33,7 +34,6 @@ public class TaskService {
         if (index < 0 || index >= tasks.size()) {
             throw new IllegalArgumentException("Invalid task number");
         }
-
         tasks.set(index, task);
     }
 
@@ -74,7 +74,7 @@ public class TaskService {
         }
     }
 
-    public Task findWhatTaskToDoNext(int numberOfTasks ) {
+    public Task findWhatTaskToDoNext(int numberOfTasks) {
         Task highestPriorityShortestEstimateTask = null;
 
         //numberoftasks must be the same as the size of the lists
@@ -114,5 +114,30 @@ public class TaskService {
             }
 
         }return highestPriorityShortestEstimateTask;
+    }
+
+    public Task recommendTask(int priority, int timeEstimate) {
+        if(priority <= 0 || priority >= 3 || timeEstimate <= 0) {
+            throw new IllegalArgumentException("Invalid priority or time estimate");
+        }
+
+        Priority priorityEnum = Priority.values()[priority];
+
+        Task recommendedTask = null;
+        List<Task> filteredTasks = tasks
+                        .stream()
+                        .filter(task -> task.getPriority() == priorityEnum && task.getTimeEstimate() <= timeEstimate)
+                        .toList();
+
+        for (Task task : filteredTasks) {
+            if(recommendedTask == null || task.getTimeEstimate() < recommendedTask.getTimeEstimate()) {
+                recommendedTask = task;
+            }
+        }
+
+        if (recommendedTask == null) {
+            throw new IllegalStateException("No task with required found");
+        }
+        return recommendedTask;
     }
 }

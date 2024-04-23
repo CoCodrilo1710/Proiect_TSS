@@ -10,7 +10,8 @@ import org.junit.platform.suite.api.Suite;
         tests.BasicEquivalencePartitioningTests.class,
         tests.FindWhatTaskToDoNextTestEquivalencePartitioningTests.class,
         tests.FindWhatTaskToDoNextTestBoundaryValueAnalysisTests.class,
-        tests.FindWhatTaskToDoNextTestDecisionCoverageTests.class
+        tests.FindWhatTaskToDoNextTestDecisionCoverageTests.class,
+        tests.RecommendTaskEquivalencePartitioning.class
 })
 public class StrategySuite {
 }
