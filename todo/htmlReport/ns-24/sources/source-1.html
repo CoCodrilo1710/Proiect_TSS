@@ -1,0 +1,356 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > MutableTestExecutionSummary</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">org.junit.platform.launcher.listeners</a>
+</div>
+
+<h1>Coverage Summary for Class: MutableTestExecutionSummary (org.junit.platform.launcher.listeners)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MutableTestExecutionSummary</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    7.1%
+  </span>
+  <span class="absValue">
+    (2/28)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/32)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    20.8%
+  </span>
+  <span class="absValue">
+    (20/96)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;//
+&nbsp;// Source code recreated from a .class file by IntelliJ IDEA
+&nbsp;// (powered by FernFlower decompiler)
+&nbsp;//
+&nbsp;
+&nbsp;package org.junit.platform.launcher.listeners;
+&nbsp;
+&nbsp;import java.io.PrintWriter;
+&nbsp;import java.time.Duration;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Collections;
+&nbsp;import java.util.HashSet;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Set;
+&nbsp;import java.util.concurrent.atomic.AtomicLong;
+&nbsp;import org.junit.platform.commons.util.Preconditions;
+&nbsp;import org.junit.platform.launcher.TestIdentifier;
+&nbsp;import org.junit.platform.launcher.TestPlan;
+&nbsp;
+&nbsp;class MutableTestExecutionSummary implements TestExecutionSummary {
+&nbsp;    private static final String TAB = &quot;  &quot;;
+&nbsp;    private static final String DOUBLE_TAB = &quot;    &quot;;
+&nbsp;    private static final int DEFAULT_MAX_STACKTRACE_LINES = 10;
+&nbsp;    private static final String CAUSED_BY = &quot;Caused by: &quot;;
+&nbsp;    private static final String SUPPRESSED = &quot;Suppressed: &quot;;
+&nbsp;    private static final String CIRCULAR = &quot;Circular reference: &quot;;
+&nbsp;    final AtomicLong containersFound = new AtomicLong();
+&nbsp;    final AtomicLong containersStarted = new AtomicLong();
+&nbsp;    final AtomicLong containersSkipped = new AtomicLong();
+&nbsp;    final AtomicLong containersAborted = new AtomicLong();
+&nbsp;    final AtomicLong containersSucceeded = new AtomicLong();
+&nbsp;    final AtomicLong containersFailed = new AtomicLong();
+&nbsp;    final AtomicLong testsFound = new AtomicLong();
+&nbsp;    final AtomicLong testsStarted = new AtomicLong();
+&nbsp;    final AtomicLong testsSkipped = new AtomicLong();
+&nbsp;    final AtomicLong testsAborted = new AtomicLong();
+&nbsp;    final AtomicLong testsSucceeded = new AtomicLong();
+&nbsp;    final AtomicLong testsFailed = new AtomicLong();
+&nbsp;    private final TestPlan testPlan;
+&nbsp;    private final List&lt;TestExecutionSummary.Failure&gt; failures = Collections.synchronizedList(new ArrayList());
+&nbsp;    private final long timeStarted;
+&nbsp;    private final long timeStartedNanos;
+&nbsp;    long timeFinished;
+<b class="fc">&nbsp;    long timeFinishedNanos;</b>
+<b class="fc">&nbsp;</b>
+<b class="fc">&nbsp;    MutableTestExecutionSummary(TestPlan testPlan) {</b>
+<b class="fc">&nbsp;        this.testPlan = testPlan;</b>
+<b class="fc">&nbsp;        this.containersFound.set(testPlan.countTestIdentifiers(TestIdentifier::isContainer));</b>
+<b class="fc">&nbsp;        this.testsFound.set(testPlan.countTestIdentifiers(TestIdentifier::isTest));</b>
+&nbsp;        this.timeStarted = System.currentTimeMillis();
+<b class="fc">&nbsp;        this.timeStartedNanos = System.nanoTime();</b>
+<b class="fc">&nbsp;    }</b>
+<b class="fc">&nbsp;</b>
+<b class="fc">&nbsp;    void addFailure(TestIdentifier testIdentifier, Throwable throwable) {</b>
+<b class="fc">&nbsp;        this.failures.add(new DefaultFailure(testIdentifier, throwable));</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    public long getTimeStarted() {
+<b class="fc">&nbsp;        return this.timeStarted;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public long getTimeFinished() {
+&nbsp;        return this.timeFinished;
+&nbsp;    }
+<b class="fc">&nbsp;</b>
+<b class="fc">&nbsp;    public long getTotalFailureCount() {</b>
+<b class="fc">&nbsp;        return this.getTestsFailedCount() + this.getContainersFailedCount();</b>
+<b class="fc">&nbsp;    }</b>
+<b class="fc">&nbsp;</b>
+<b class="fc">&nbsp;    public long getContainersFoundCount() {</b>
+&nbsp;        return this.containersFound.get();
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    public long getContainersStartedCount() {</b>
+&nbsp;        return this.containersStarted.get();
+&nbsp;    }
+&nbsp;
+&nbsp;    public long getContainersSkippedCount() {
+<b class="nc">&nbsp;        return this.containersSkipped.get();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public long getContainersAbortedCount() {
+&nbsp;        return this.containersAborted.get();
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    public long getContainersSucceededCount() {
+&nbsp;        return this.containersSucceeded.get();
+&nbsp;    }
+<b class="nc">&nbsp;</b>
+&nbsp;    public long getContainersFailedCount() {
+&nbsp;        return this.containersFailed.get();
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    public long getTestsFoundCount() {</b>
+&nbsp;        return this.testsFound.get();
+&nbsp;    }
+&nbsp;
+&nbsp;    public long getTestsStartedCount() {
+<b class="nc">&nbsp;        return this.testsStarted.get();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public long getTestsSkippedCount() {
+&nbsp;        return this.testsSkipped.get();
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    public long getTestsAbortedCount() {
+&nbsp;        return this.testsAborted.get();
+&nbsp;    }
+<b class="nc">&nbsp;</b>
+&nbsp;    public long getTestsSucceededCount() {
+&nbsp;        return this.testsSucceeded.get();
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    public long getTestsFailedCount() {</b>
+&nbsp;        return this.testsFailed.get();
+&nbsp;    }
+&nbsp;
+&nbsp;    public void printTo(PrintWriter writer) {
+<b class="nc">&nbsp;        writer.printf(&quot;%nTest run finished after %d ms%n[%10d containers found      ]%n[%10d containers skipped    ]%n[%10d containers started    ]%n[%10d containers aborted    ]%n[%10d containers successful ]%n[%10d containers failed     ]%n[%10d tests found           ]%n[%10d tests skipped         ]%n[%10d tests started         ]%n[%10d tests aborted         ]%n[%10d tests successful      ]%n[%10d tests failed          ]%n%n&quot;, Duration.ofNanos(this.timeFinishedNanos - this.timeStartedNanos).toMillis(), this.getContainersFoundCount(), this.getContainersSkippedCount(), this.getContainersStartedCount(), this.getContainersAbortedCount(), this.getContainersSucceededCount(), this.getContainersFailedCount(), this.getTestsFoundCount(), this.getTestsSkippedCount(), this.getTestsStartedCount(), this.getTestsAbortedCount(), this.getTestsSucceededCount(), this.getTestsFailedCount());</b>
+&nbsp;        writer.flush();
+&nbsp;    }
+&nbsp;
+&nbsp;    public void printFailuresTo(PrintWriter writer) {
+<b class="fc">&nbsp;        this.printFailuresTo(writer, 10);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void printFailuresTo(PrintWriter writer, int maxStackTraceLines) {
+&nbsp;        Preconditions.notNull(writer, &quot;PrintWriter must not be null&quot;);
+<b class="nc">&nbsp;        Preconditions.condition(maxStackTraceLines &gt;= 0, &quot;maxStackTraceLines must be a positive number&quot;);</b>
+&nbsp;        if (this.getTotalFailureCount() &gt; 0L) {
+&nbsp;            writer.printf(&quot;%nFailures (%d):%n&quot;, this.getTotalFailureCount());
+&nbsp;            this.failures.forEach((failure) -&gt; {
+&nbsp;                writer.printf(&quot;%s%s%n&quot;, &quot;  &quot;, this.describeTest(failure.getTestIdentifier()));
+<b class="nc">&nbsp;                this.printSource(writer, failure.getTestIdentifier());</b>
+&nbsp;                writer.printf(&quot;%s=&gt; %s%n&quot;, &quot;    &quot;, failure.getException());
+&nbsp;                this.printStackTrace(writer, failure.getException(), maxStackTraceLines);
+&nbsp;            });
+&nbsp;            writer.flush();
+<b class="nc">&nbsp;        }</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;TestExecutionSummary.Failure&gt; getFailures() {
+<b class="nc">&nbsp;        return Collections.unmodifiableList(this.failures);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private String describeTest(TestIdentifier testIdentifier) {
+&nbsp;        List&lt;String&gt; descriptionParts = new ArrayList();
+<b class="nc">&nbsp;        this.collectTestDescription(testIdentifier, descriptionParts);</b>
+&nbsp;        return String.join(&quot;:&quot;, descriptionParts);
+&nbsp;    }
+&nbsp;
+&nbsp;    private void collectTestDescription(TestIdentifier identifier, List&lt;String&gt; descriptionParts) {
+&nbsp;        descriptionParts.add(0, identifier.getDisplayName());
+<b class="nc">&nbsp;        this.testPlan.getParent(identifier).ifPresent((parent) -&gt; {</b>
+&nbsp;            this.collectTestDescription(parent, descriptionParts);
+&nbsp;        });
+&nbsp;    }
+&nbsp;
+&nbsp;    private void printSource(PrintWriter writer, TestIdentifier testIdentifier) {
+&nbsp;        testIdentifier.getSource().ifPresent((source) -&gt; {
+&nbsp;            writer.printf(&quot;%s%s%n&quot;, &quot;    &quot;, source);
+&nbsp;        });
+&nbsp;    }
+&nbsp;
+&nbsp;    private void printStackTrace(PrintWriter writer, Throwable throwable, int max) {
+&nbsp;        if (throwable.getCause() != null || throwable.getSuppressed() != null &amp;&amp; throwable.getSuppressed().length &gt; 0) {
+&nbsp;            max /= 2;
+&nbsp;        }
+&nbsp;
+&nbsp;        this.printStackTrace(writer, new StackTraceElement[0], throwable, &quot;&quot;, &quot;     &quot;, new HashSet(), max);
+<b class="nc">&nbsp;        writer.flush();</b>
+&nbsp;    }
+<b class="nc">&nbsp;</b>
+<b class="nc">&nbsp;    private void printStackTrace(PrintWriter writer, StackTraceElement[] parentTrace, Throwable throwable, String caption, String indentation, Set&lt;Throwable&gt; seenThrowables, int max) {</b>
+<b class="nc">&nbsp;        if (seenThrowables.contains(throwable)) {</b>
+<b class="nc">&nbsp;            writer.printf(&quot;%s%s[%s%s]%n&quot;, indentation, &quot;  &quot;, &quot;Circular reference: &quot;, throwable);</b>
+<b class="nc">&nbsp;        } else {</b>
+<b class="nc">&nbsp;            seenThrowables.add(throwable);</b>
+&nbsp;            StackTraceElement[] trace = throwable.getStackTrace();
+<b class="nc">&nbsp;            if (parentTrace != null &amp;&amp; parentTrace.length &gt; 0) {</b>
+<b class="nc">&nbsp;                writer.printf(&quot;%s%s%s%n&quot;, indentation, caption, throwable);</b>
+<b class="nc">&nbsp;            }</b>
+<b class="nc">&nbsp;</b>
+<b class="nc">&nbsp;            int duplicates = this.numberOfCommonFrames(trace, parentTrace);</b>
+<b class="nc">&nbsp;            int numDistinctFrames = trace.length - duplicates;</b>
+&nbsp;            int numDisplayLines = Math.min(numDistinctFrames, max);
+&nbsp;
+&nbsp;            for(int i = 0; i &lt; numDisplayLines; ++i) {
+<b class="nc">&nbsp;                writer.printf(&quot;%s%s%s%n&quot;, indentation, &quot;  &quot;, trace[i]);</b>
+&nbsp;            }
+&nbsp;
+&nbsp;            if (trace.length &gt; max || duplicates != 0) {
+&nbsp;                writer.printf(&quot;%s%s%s%n&quot;, indentation, &quot;  &quot;, &quot;[...]&quot;);
+<b class="nc">&nbsp;            }</b>
+&nbsp;
+&nbsp;            Throwable[] var16 = throwable.getSuppressed();
+&nbsp;            int var13 = var16.length;
+&nbsp;
+<b class="nc">&nbsp;            for(int var14 = 0; var14 &lt; var13; ++var14) {</b>
+<b class="nc">&nbsp;                Throwable suppressed = var16[var14];</b>
+&nbsp;                this.printStackTrace(writer, trace, suppressed, &quot;Suppressed: &quot;, indentation + &quot;  &quot;, seenThrowables, max);
+<b class="nc">&nbsp;            }</b>
+<b class="nc">&nbsp;</b>
+<b class="nc">&nbsp;            if (throwable.getCause() != null) {</b>
+<b class="nc">&nbsp;                this.printStackTrace(writer, trace, throwable.getCause(), &quot;Caused by: &quot;, indentation, seenThrowables, max);</b>
+<b class="nc">&nbsp;            }</b>
+<b class="nc">&nbsp;</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;    }
+<b class="nc">&nbsp;</b>
+&nbsp;    private int numberOfCommonFrames(StackTraceElement[] currentTrace, StackTraceElement[] parentTrace) {
+&nbsp;        int currentIndex = currentTrace.length - 1;
+&nbsp;
+&nbsp;        for(int parentIndex = parentTrace.length - 1; currentIndex &gt;= 0 &amp;&amp; parentIndex &gt;= 0 &amp;&amp; currentTrace[currentIndex].equals(parentTrace[parentIndex]); --parentIndex) {
+&nbsp;            --currentIndex;
+<b class="nc">&nbsp;        }</b>
+&nbsp;
+&nbsp;        return currentTrace.length - 1 - currentIndex;
+&nbsp;    }
+<b class="nc">&nbsp;</b>
+<b class="nc">&nbsp;    private static class DefaultFailure implements TestExecutionSummary.Failure {</b>
+<b class="nc">&nbsp;        private static final long serialVersionUID = 1L;</b>
+&nbsp;        private final TestIdentifier testIdentifier;
+&nbsp;        private final Throwable exception;
+&nbsp;
+<b class="nc">&nbsp;        DefaultFailure(TestIdentifier testIdentifier, Throwable exception) {</b>
+<b class="nc">&nbsp;            this.testIdentifier = testIdentifier;</b>
+&nbsp;            this.exception = exception;
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        public TestIdentifier getTestIdentifier() {</b>
+&nbsp;            return this.testIdentifier;
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        public Throwable getException() {</b>
+<b class="nc">&nbsp;            return this.exception;</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;    }
+<b class="nc">&nbsp;}</b>
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-24 08:58</div>
+</div>
+</body>
+</html>

@@ -2,7 +2,6 @@ package tests;
 
 import model.Priority;
 import model.Task;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import services.TaskService;

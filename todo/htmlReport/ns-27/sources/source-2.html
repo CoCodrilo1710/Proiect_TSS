@@ -1,0 +1,389 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > SuiteLauncherDiscoveryRequestBuilder</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">org.junit.platform.suite.commons</a>
+</div>
+
+<h1>Coverage Summary for Class: SuiteLauncherDiscoveryRequestBuilder (org.junit.platform.suite.commons)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SuiteLauncherDiscoveryRequestBuilder</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    41.4%
+  </span>
+  <span class="absValue">
+    (12/29)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    13.9%
+  </span>
+  <span class="absValue">
+    (5/36)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    63.9%
+  </span>
+  <span class="absValue">
+    (92/144)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;//
+&nbsp;// Source code recreated from a .class file by IntelliJ IDEA
+&nbsp;// (powered by FernFlower decompiler)
+&nbsp;//
+&nbsp;
+&nbsp;package org.junit.platform.suite.commons;
+&nbsp;
+&nbsp;import java.lang.annotation.Annotation;
+&nbsp;import java.lang.reflect.AnnotatedElement;
+&nbsp;import java.util.Arrays;
+&nbsp;import java.util.LinkedHashSet;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Map;
+&nbsp;import java.util.Optional;
+&nbsp;import java.util.Set;
+&nbsp;import java.util.function.Function;
+&nbsp;import java.util.regex.Pattern;
+&nbsp;import java.util.stream.Collectors;
+&nbsp;import java.util.stream.Stream;
+&nbsp;import org.apiguardian.api.API;
+&nbsp;import org.apiguardian.api.API.Status;
+&nbsp;import org.junit.platform.commons.util.AnnotationUtils;
+&nbsp;import org.junit.platform.commons.util.Preconditions;
+&nbsp;import org.junit.platform.commons.util.StringUtils;
+&nbsp;import org.junit.platform.engine.ConfigurationParameters;
+&nbsp;import org.junit.platform.engine.DiscoverySelector;
+&nbsp;import org.junit.platform.engine.Filter;
+&nbsp;import org.junit.platform.engine.discovery.ClassNameFilter;
+&nbsp;import org.junit.platform.engine.discovery.ClassSelector;
+&nbsp;import org.junit.platform.engine.discovery.DiscoverySelectors;
+&nbsp;import org.junit.platform.engine.discovery.MethodSelector;
+&nbsp;import org.junit.platform.engine.discovery.PackageNameFilter;
+&nbsp;import org.junit.platform.launcher.EngineFilter;
+&nbsp;import org.junit.platform.launcher.LauncherDiscoveryRequest;
+&nbsp;import org.junit.platform.launcher.TagFilter;
+&nbsp;import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
+&nbsp;import org.junit.platform.suite.api.ConfigurationParameter;
+&nbsp;import org.junit.platform.suite.api.DisableParentConfigurationParameters;
+&nbsp;import org.junit.platform.suite.api.ExcludeClassNamePatterns;
+&nbsp;import org.junit.platform.suite.api.ExcludeEngines;
+&nbsp;import org.junit.platform.suite.api.ExcludePackages;
+&nbsp;import org.junit.platform.suite.api.ExcludeTags;
+&nbsp;import org.junit.platform.suite.api.IncludeClassNamePatterns;
+&nbsp;import org.junit.platform.suite.api.IncludeEngines;
+&nbsp;import org.junit.platform.suite.api.IncludePackages;
+&nbsp;import org.junit.platform.suite.api.IncludeTags;
+&nbsp;import org.junit.platform.suite.api.SelectClasses;
+&nbsp;import org.junit.platform.suite.api.SelectClasspathResource;
+&nbsp;import org.junit.platform.suite.api.SelectDirectories;
+&nbsp;import org.junit.platform.suite.api.SelectFile;
+&nbsp;import org.junit.platform.suite.api.SelectMethod;
+&nbsp;import org.junit.platform.suite.api.SelectModules;
+&nbsp;import org.junit.platform.suite.api.SelectPackages;
+&nbsp;import org.junit.platform.suite.api.SelectUris;
+&nbsp;
+&nbsp;@API(
+&nbsp;    status = Status.INTERNAL,
+&nbsp;    since = &quot;1.8&quot;,
+&nbsp;    consumers = {&quot;org.junit.platform.suite.engine&quot;, &quot;org.junit.platform.runner&quot;}
+&nbsp;)
+&nbsp;public final class SuiteLauncherDiscoveryRequestBuilder {
+&nbsp;    private final LauncherDiscoveryRequestBuilder delegate = LauncherDiscoveryRequestBuilder.request();
+&nbsp;    private final Set&lt;String&gt; selectedClassNames = new LinkedHashSet();
+&nbsp;    private boolean includeClassNamePatternsUsed;
+&nbsp;    private boolean filterStandardClassNamePatterns = false;
+&nbsp;    private ConfigurationParameters parentConfigurationParameters;
+&nbsp;    private boolean enableParentConfigurationParameters = true;
+&nbsp;
+&nbsp;    private SuiteLauncherDiscoveryRequestBuilder() {
+&nbsp;    }
+&nbsp;
+&nbsp;    public static SuiteLauncherDiscoveryRequestBuilder request() {
+&nbsp;        return new SuiteLauncherDiscoveryRequestBuilder();
+<b class="fc">&nbsp;    }</b>
+<b class="fc">&nbsp;</b>
+&nbsp;    public SuiteLauncherDiscoveryRequestBuilder filterStandardClassNamePatterns(boolean filterStandardClassNamePatterns) {
+<b class="fc">&nbsp;        this.filterStandardClassNamePatterns = filterStandardClassNamePatterns;</b>
+&nbsp;        return this;
+<b class="fc">&nbsp;    }</b>
+&nbsp;
+<b class="fc">&nbsp;    public SuiteLauncherDiscoveryRequestBuilder selectors(DiscoverySelector... selectors) {</b>
+&nbsp;        this.delegate.selectors(selectors);
+&nbsp;        return this;
+&nbsp;    }
+<b class="fc">&nbsp;</b>
+&nbsp;    public SuiteLauncherDiscoveryRequestBuilder selectors(List&lt;? extends DiscoverySelector&gt; selectors) {
+&nbsp;        this.delegate.selectors(selectors);
+&nbsp;        return this;
+&nbsp;    }
+<b class="fc">&nbsp;</b>
+<b class="fc">&nbsp;    public SuiteLauncherDiscoveryRequestBuilder filters(Filter&lt;?&gt;... filters) {</b>
+&nbsp;        this.delegate.filters(filters);
+&nbsp;        return this;
+&nbsp;    }
+<b class="nc">&nbsp;</b>
+<b class="nc">&nbsp;    public SuiteLauncherDiscoveryRequestBuilder configurationParameter(String key, String value) {</b>
+&nbsp;        this.delegate.configurationParameter(key, value);
+&nbsp;        return this;
+&nbsp;    }
+<b class="fc">&nbsp;</b>
+<b class="fc">&nbsp;    public SuiteLauncherDiscoveryRequestBuilder configurationParameters(Map&lt;String, String&gt; configurationParameters) {</b>
+&nbsp;        this.delegate.configurationParameters(configurationParameters);
+&nbsp;        return this;
+&nbsp;    }
+<b class="nc">&nbsp;</b>
+<b class="nc">&nbsp;    public SuiteLauncherDiscoveryRequestBuilder parentConfigurationParameters(ConfigurationParameters parentConfigurationParameters) {</b>
+&nbsp;        this.parentConfigurationParameters = parentConfigurationParameters;
+&nbsp;        return this;
+&nbsp;    }
+<b class="nc">&nbsp;</b>
+<b class="nc">&nbsp;    public SuiteLauncherDiscoveryRequestBuilder enableImplicitConfigurationParameters(boolean enabled) {</b>
+&nbsp;        this.delegate.enableImplicitConfigurationParameters(enabled);
+&nbsp;        return this;
+&nbsp;    }
+<b class="nc">&nbsp;</b>
+<b class="nc">&nbsp;    public SuiteLauncherDiscoveryRequestBuilder suite(Class&lt;?&gt; suiteClass) {</b>
+&nbsp;        Preconditions.notNull(suiteClass, &quot;Suite class must not be null&quot;);
+&nbsp;        AnnotationUtils.findRepeatableAnnotations(suiteClass, ConfigurationParameter.class).forEach((configuration) -&gt; {
+&nbsp;            this.configurationParameter(configuration.key(), configuration.value());
+&nbsp;        });
+<b class="fc">&nbsp;        AnnotationUtils.findAnnotation(suiteClass, DisableParentConfigurationParameters.class).ifPresent((__) -&gt; {</b>
+<b class="fc">&nbsp;            this.enableParentConfigurationParameters = false;</b>
+&nbsp;        });
+&nbsp;        findAnnotationValues(suiteClass, ExcludeClassNamePatterns.class, ExcludeClassNamePatterns::value).flatMap(SuiteLauncherDiscoveryRequestBuilder::trimmed).map(ClassNameFilter::excludeClassNamePatterns).ifPresent((xva$0) -&gt; {
+&nbsp;            this.filters(xva$0);
+<b class="fc">&nbsp;        });</b>
+<b class="fc">&nbsp;        findAnnotationValues(suiteClass, ExcludeEngines.class, ExcludeEngines::value).map(EngineFilter::excludeEngines).ifPresent((xva$0) -&gt; {</b>
+&nbsp;            this.filters(xva$0);
+&nbsp;        });
+&nbsp;        findAnnotationValues(suiteClass, ExcludePackages.class, ExcludePackages::value).map(PackageNameFilter::excludePackageNames).ifPresent((xva$0) -&gt; {
+<b class="fc">&nbsp;            this.filters(xva$0);</b>
+&nbsp;        });
+&nbsp;        findAnnotationValues(suiteClass, ExcludeTags.class, ExcludeTags::value).map(TagFilter::excludeTags).ifPresent((xva$0) -&gt; {
+&nbsp;            this.filters(xva$0);
+<b class="fc">&nbsp;        });</b>
+<b class="fc">&nbsp;        AnnotationUtils.findAnnotation(suiteClass, SelectClasses.class).map((annotation) -&gt; {</b>
+<b class="fc">&nbsp;            return this.selectClasses(suiteClass, annotation);</b>
+<b class="fc">&nbsp;        }).ifPresent(this::selectors);</b>
+<b class="fc">&nbsp;        AnnotationUtils.findRepeatableAnnotations(suiteClass, SelectMethod.class).stream().map((annotation) -&gt; {</b>
+<b class="fc">&nbsp;            return this.selectMethod(suiteClass, annotation);</b>
+<b class="fc">&nbsp;        }).forEach((xva$0) -&gt; {</b>
+<b class="fc">&nbsp;            this.selectors(xva$0);</b>
+<b class="fc">&nbsp;        });</b>
+<b class="fc">&nbsp;        findAnnotationValues(suiteClass, IncludeClassNamePatterns.class, IncludeClassNamePatterns::value).flatMap(SuiteLauncherDiscoveryRequestBuilder::trimmed).map(this::createIncludeClassNameFilter).ifPresent((filters) -&gt; {</b>
+<b class="fc">&nbsp;            this.includeClassNamePatternsUsed = true;</b>
+<b class="fc">&nbsp;            this.filters(filters);</b>
+<b class="fc">&nbsp;        });</b>
+<b class="fc">&nbsp;        findAnnotationValues(suiteClass, IncludeEngines.class, IncludeEngines::value).map(EngineFilter::includeEngines).ifPresent((xva$0) -&gt; {</b>
+<b class="fc">&nbsp;            this.filters(xva$0);</b>
+<b class="fc">&nbsp;        });</b>
+<b class="fc">&nbsp;        findAnnotationValues(suiteClass, IncludePackages.class, IncludePackages::value).map(PackageNameFilter::includePackageNames).ifPresent((xva$0) -&gt; {</b>
+&nbsp;            this.filters(xva$0);
+&nbsp;        });
+<b class="fc">&nbsp;        findAnnotationValues(suiteClass, IncludeTags.class, IncludeTags::value).map(TagFilter::includeTags).ifPresent((xva$0) -&gt; {</b>
+<b class="fc">&nbsp;            this.filters(xva$0);</b>
+<b class="fc">&nbsp;        });</b>
+<b class="fc">&nbsp;        AnnotationUtils.findRepeatableAnnotations(suiteClass, SelectClasspathResource.class).stream().map((annotation) -&gt; {</b>
+<b class="fc">&nbsp;            return AdditionalDiscoverySelectors.selectClasspathResource(annotation.value(), annotation.line(), annotation.column());</b>
+<b class="fc">&nbsp;        }).forEach((xva$0) -&gt; {</b>
+<b class="fc">&nbsp;            this.selectors(xva$0);</b>
+<b class="fc">&nbsp;        });</b>
+<b class="fc">&nbsp;        findAnnotationValues(suiteClass, SelectDirectories.class, SelectDirectories::value).map(AdditionalDiscoverySelectors::selectDirectories).ifPresent(this::selectors);</b>
+<b class="fc">&nbsp;        AnnotationUtils.findRepeatableAnnotations(suiteClass, SelectFile.class).stream().map((annotation) -&gt; {</b>
+<b class="fc">&nbsp;            return AdditionalDiscoverySelectors.selectFile(annotation.value(), annotation.line(), annotation.column());</b>
+<b class="nc">&nbsp;        }).forEach((xva$0) -&gt; {</b>
+<b class="nc">&nbsp;            this.selectors(xva$0);</b>
+&nbsp;        });
+<b class="fc">&nbsp;        findAnnotationValues(suiteClass, SelectModules.class, SelectModules::value).map(AdditionalDiscoverySelectors::selectModules).ifPresent(this::selectors);</b>
+<b class="fc">&nbsp;        findAnnotationValues(suiteClass, SelectUris.class, SelectUris::value).map(AdditionalDiscoverySelectors::selectUris).ifPresent(this::selectors);</b>
+<b class="fc">&nbsp;        findAnnotationValues(suiteClass, SelectPackages.class, SelectPackages::value).map(AdditionalDiscoverySelectors::selectPackages).ifPresent(this::selectors);</b>
+<b class="fc">&nbsp;        return this;</b>
+<b class="fc">&nbsp;    }</b>
+<b class="fc">&nbsp;</b>
+<b class="fc">&nbsp;    public LauncherDiscoveryRequest build() {</b>
+<b class="fc">&nbsp;        if (this.filterStandardClassNamePatterns &amp;&amp; !this.includeClassNamePatternsUsed) {</b>
+<b class="fc">&nbsp;            this.delegate.filters(new Filter[]{this.createIncludeClassNameFilter(&quot;^(Test.*|.+[.$]Test.*|.*Tests?)$&quot;)});</b>
+<b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;</b>
+<b class="fc">&nbsp;        if (this.enableParentConfigurationParameters &amp;&amp; this.parentConfigurationParameters != null) {</b>
+<b class="fc">&nbsp;            this.delegate.parentConfigurationParameters(this.parentConfigurationParameters);</b>
+<b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;</b>
+<b class="fc">&nbsp;        return this.delegate.build();</b>
+<b class="fc">&nbsp;    }</b>
+<b class="fc">&nbsp;</b>
+<b class="fc">&nbsp;    private List&lt;ClassSelector&gt; selectClasses(Class&lt;?&gt; suiteClass, SelectClasses annotation) {</b>
+<b class="fc">&nbsp;        return (List)toClassSelectors(suiteClass, annotation).distinct().peek((selector) -&gt; {</b>
+<b class="fc">&nbsp;            this.selectedClassNames.add(selector.getClassName());</b>
+<b class="fc">&nbsp;        }).collect(Collectors.toList());</b>
+<b class="fc">&nbsp;    }</b>
+<b class="fc">&nbsp;</b>
+<b class="fc">&nbsp;    private static Stream&lt;ClassSelector&gt; toClassSelectors(Class&lt;?&gt; suiteClass, SelectClasses annotation) {</b>
+<b class="fc">&nbsp;        Preconditions.condition(annotation.value().length &gt; 0 || annotation.names().length &gt; 0, () -&gt; {</b>
+<b class="fc">&nbsp;            return String.format(&quot;@SelectClasses on class [%s] must declare at least one class reference or name&quot;, suiteClass.getName());</b>
+<b class="fc">&nbsp;        });</b>
+<b class="fc">&nbsp;        return Stream.concat(AdditionalDiscoverySelectors.selectClasses(annotation.value()), AdditionalDiscoverySelectors.selectClasses(annotation.names()));</b>
+&nbsp;    }
+<b class="fc">&nbsp;</b>
+&nbsp;    private MethodSelector selectMethod(Class&lt;?&gt; suiteClass, SelectMethod annotation) {
+&nbsp;        MethodSelector methodSelector = this.toMethodSelector(suiteClass, annotation);
+&nbsp;        this.selectedClassNames.add(methodSelector.getClassName());
+<b class="pc">&nbsp;        return methodSelector;</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    private MethodSelector toMethodSelector(Class&lt;?&gt; suiteClass, SelectMethod annotation) {
+<b class="pc">&nbsp;        if (!annotation.value().isEmpty()) {</b>
+<b class="fc">&nbsp;            Preconditions.condition(annotation.type() == Class.class, () -&gt; {</b>
+&nbsp;                return prefixErrorMessageForInvalidSelectMethodUsage(suiteClass, &quot;type must not be set in conjunction with fully qualified method name&quot;);
+&nbsp;            });
+<b class="fc">&nbsp;            Preconditions.condition(annotation.typeName().isEmpty(), () -&gt; {</b>
+&nbsp;                return prefixErrorMessageForInvalidSelectMethodUsage(suiteClass, &quot;type name must not be set in conjunction with fully qualified method name&quot;);
+&nbsp;            });
+&nbsp;            Preconditions.condition(annotation.name().isEmpty(), () -&gt; {
+<b class="fc">&nbsp;                return prefixErrorMessageForInvalidSelectMethodUsage(suiteClass, &quot;method name must not be set in conjunction with fully qualified method name&quot;);</b>
+<b class="fc">&nbsp;            });</b>
+<b class="fc">&nbsp;            Preconditions.condition(annotation.parameterTypes().length == 0, () -&gt; {</b>
+<b class="fc">&nbsp;                return prefixErrorMessageForInvalidSelectMethodUsage(suiteClass, &quot;parameter types must not be set in conjunction with fully qualified method name&quot;);</b>
+&nbsp;            });
+&nbsp;            Preconditions.condition(annotation.parameterTypeNames().isEmpty(), () -&gt; {
+&nbsp;                return prefixErrorMessageForInvalidSelectMethodUsage(suiteClass, &quot;parameter type names must not be set in conjunction with fully qualified method name&quot;);
+<b class="pc">&nbsp;            });</b>
+<b class="nc">&nbsp;            return DiscoverySelectors.selectMethod(annotation.value());</b>
+<b class="nc">&nbsp;        } else {</b>
+<b class="fc">&nbsp;            Class&lt;?&gt; type = annotation.type() == Class.class ? null : annotation.type();</b>
+<b class="fc">&nbsp;            String typeName = annotation.typeName().isEmpty() ? null : annotation.typeName().trim();</b>
+<b class="fc">&nbsp;            String methodName = Preconditions.notBlank(annotation.name(), () -&gt; {</b>
+&nbsp;                return prefixErrorMessageForInvalidSelectMethodUsage(suiteClass, &quot;method name must not be blank&quot;);
+&nbsp;            });
+&nbsp;            Class&lt;?&gt;[] parameterTypes = annotation.parameterTypes().length == 0 ? null : annotation.parameterTypes();
+&nbsp;            String parameterTypeNames = annotation.parameterTypeNames().trim();
+<b class="nc">&nbsp;            if (parameterTypes != null) {</b>
+<b class="nc">&nbsp;                Preconditions.condition(parameterTypeNames.isEmpty(), () -&gt; {</b>
+<b class="nc">&nbsp;                    return prefixErrorMessageForInvalidSelectMethodUsage(suiteClass, &quot;either parameter type names or parameter types must be set but not both&quot;);</b>
+&nbsp;                });
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            if (type == null) {</b>
+<b class="nc">&nbsp;                Preconditions.notBlank(typeName, () -&gt; {</b>
+<b class="nc">&nbsp;                    return prefixErrorMessageForInvalidSelectMethodUsage(suiteClass, &quot;type must be set or type name must not be blank&quot;);</b>
+&nbsp;                });
+<b class="nc">&nbsp;                return parameterTypes == null ? DiscoverySelectors.selectMethod(typeName, methodName, parameterTypeNames) : DiscoverySelectors.selectMethod(typeName, methodName, parameterTypes);</b>
+<b class="nc">&nbsp;            } else {</b>
+&nbsp;                Preconditions.condition(typeName == null, () -&gt; {
+<b class="nc">&nbsp;                    return prefixErrorMessageForInvalidSelectMethodUsage(suiteClass, &quot;either type name or type must be set but not both&quot;);</b>
+<b class="nc">&nbsp;                });</b>
+&nbsp;                return parameterTypes == null ? DiscoverySelectors.selectMethod(type, methodName, parameterTypeNames) : DiscoverySelectors.selectMethod(type, methodName, parameterTypes);
+<b class="nc">&nbsp;            }</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;    }
+<b class="nc">&nbsp;</b>
+<b class="nc">&nbsp;    private static String prefixErrorMessageForInvalidSelectMethodUsage(Class&lt;?&gt; suiteClass, String detailMessage) {</b>
+&nbsp;        return String.format(&quot;@SelectMethod on class [%s]: %s&quot;, suiteClass.getName(), detailMessage);
+&nbsp;    }
+<b class="nc">&nbsp;</b>
+&nbsp;    private ClassNameFilter createIncludeClassNameFilter(String... patterns) {
+&nbsp;        String[] combinedPatterns = (String[])Stream.concat(this.selectedClassNames.stream().map(Pattern::quote), Arrays.stream(patterns)).toArray((x$0) -&gt; {
+<b class="nc">&nbsp;            return new String[x$0];</b>
+<b class="nc">&nbsp;        });</b>
+<b class="nc">&nbsp;        return ClassNameFilter.includeClassNamePatterns(combinedPatterns);</b>
+<b class="nc">&nbsp;    }</b>
+<b class="nc">&nbsp;</b>
+<b class="nc">&nbsp;    private static &lt;A extends Annotation, V&gt; Optional&lt;V[]&gt; findAnnotationValues(AnnotatedElement element, Class&lt;A&gt; annotationType, Function&lt;A, V[]&gt; valueExtractor) {</b>
+<b class="nc">&nbsp;        return AnnotationUtils.findAnnotation(element, annotationType).map(valueExtractor).filter((values) -&gt; {</b>
+<b class="nc">&nbsp;            return values.length &gt; 0;</b>
+<b class="nc">&nbsp;        });</b>
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    private static Optional&lt;String[]&gt; trimmed(String[] patterns) {</b>
+<b class="nc">&nbsp;        return patterns.length == 0 ? Optional.empty() : Optional.of((String[])Arrays.stream(patterns).filter(StringUtils::isNotBlank).map(String::trim).toArray((x$0) -&gt; {</b>
+&nbsp;            return new String[x$0];
+<b class="nc">&nbsp;        }));</b>
+<b class="nc">&nbsp;    }</b>
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-24 08:58</div>
+</div>
+</body>
+</html>

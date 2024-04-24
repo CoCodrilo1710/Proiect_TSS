@@ -1,0 +1,190 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > FindWhatTaskToDoNextTestDecisionCoverageTests</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">tests</a>
+</div>
+
+<h1>Coverage Summary for Class: FindWhatTaskToDoNextTestDecisionCoverageTests (tests)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FindWhatTaskToDoNextTestDecisionCoverageTests</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (29/29)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package tests;
+&nbsp;
+&nbsp;import model.Priority;
+&nbsp;import model.Task;
+&nbsp;import model.Status;
+&nbsp;import org.junit.jupiter.api.BeforeEach;
+&nbsp;import org.junit.jupiter.api.Test;
+&nbsp;import services.TaskService;
+&nbsp;
+&nbsp;import static org.junit.jupiter.api.Assertions.*;
+&nbsp;
+<b class="fc">&nbsp;public class FindWhatTaskToDoNextTestDecisionCoverageTests {</b>
+&nbsp;    TaskService taskService;
+&nbsp;
+&nbsp;    @BeforeEach
+&nbsp;    public void setUp() {
+<b class="fc">&nbsp;        taskService = new TaskService();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    void givenTasksWithDifferentPriorities_whenFindWhatTaskToDoNext_thenSelectHighestPriorityTask()
+&nbsp;    {
+&nbsp;        // adding two tasks with different priorities to the list of tasks
+<b class="fc">&nbsp;        taskService.addTask(new Task(&quot;Task 1&quot;, Priority.HIGH, 3));</b>
+<b class="fc">&nbsp;        taskService.addTask(new Task(&quot;Task 2&quot;, Priority.MEDIUM, 2));</b>
+&nbsp;
+<b class="fc">&nbsp;        Integer numberOfTasks = 2;</b>
+&nbsp;
+<b class="fc">&nbsp;        Task returnedTask = taskService.findWhatTaskToDoNext(numberOfTasks);</b>
+<b class="fc">&nbsp;        Task expectedTask = taskService.getByIndex(0);</b>
+&nbsp;
+<b class="fc">&nbsp;        assertEquals(expectedTask, returnedTask);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    void givenTasksWithSamePriorityAndShorterTime_whenFindWhatTaskToDoNext_thenSelectShorterTimeTask()
+&nbsp;    {
+&nbsp;        // adding two tasks with different priorities to the list of tasks
+<b class="fc">&nbsp;        taskService.addTask(new Task(&quot;Task 1&quot;, Priority.HIGH, 3));</b>
+<b class="fc">&nbsp;        taskService.addTask(new Task(&quot;Task 2&quot;, Priority.HIGH, 2));</b>
+&nbsp;
+<b class="fc">&nbsp;        Integer numberOfTasks = 2;</b>
+&nbsp;
+<b class="fc">&nbsp;        Task returnedTask = taskService.findWhatTaskToDoNext(numberOfTasks);</b>
+<b class="fc">&nbsp;        Task expectedTask = taskService.getByIndex(1);</b>
+&nbsp;
+<b class="fc">&nbsp;        assertEquals(expectedTask, returnedTask);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    void givenNoAvailableTasks_whenFindWhatTaskToDoNext_thenThrowException()
+&nbsp;    {
+&nbsp;        // set two tasks
+<b class="fc">&nbsp;        Task task1 = new Task(&quot;Task 1&quot;, Priority.HIGH, 3);</b>
+<b class="fc">&nbsp;        Task task2 = new Task(&quot;Task 2&quot;, Priority.MEDIUM, 5);</b>
+&nbsp;
+&nbsp;        // set them as complete
+<b class="fc">&nbsp;        task1.setStatus(Status.COMPLETE);</b>
+<b class="fc">&nbsp;        task2.setStatus(Status.COMPLETE);</b>
+&nbsp;
+&nbsp;        // add tasks to the list
+<b class="fc">&nbsp;        taskService.addTask(task1);</b>
+<b class="fc">&nbsp;        taskService.addTask(task2);</b>
+&nbsp;
+<b class="fc">&nbsp;        Integer numberOfTasks = 2;</b>
+&nbsp;
+&nbsp;        // check if method throws IllegalStateException: &quot;No available tasks to do&quot;
+<b class="fc">&nbsp;        assertThrows(IllegalStateException.class, () -&gt; {</b>
+<b class="fc">&nbsp;            taskService.findWhatTaskToDoNext(numberOfTasks);</b>
+&nbsp;        }, &quot;No available tasks to do&quot;);
+&nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    void givenTasksWithDifferentPrioritiesAndTimeEstimates_whenFindWhatTaskToDoNext_thenSelectHighestPriorityAndShortestTimeTask() {
+&nbsp;        // add tasks to list
+<b class="fc">&nbsp;        taskService.addTask(new Task(&quot;Task 1&quot;, Priority.LOW, 3));</b>
+<b class="fc">&nbsp;        taskService.addTask(new Task(&quot;Task 2&quot;, Priority.MEDIUM, 2));</b>
+<b class="fc">&nbsp;        taskService.addTask(new Task(&quot;Task 3&quot;, Priority.HIGH, 1));</b>
+&nbsp;
+<b class="fc">&nbsp;        Task returnedTask = taskService.findWhatTaskToDoNext(3);</b>
+<b class="fc">&nbsp;        Task expectedTask = taskService.getByIndex(2);</b>
+&nbsp;
+<b class="fc">&nbsp;        assertEquals(expectedTask, returnedTask);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-24 08:58</div>
+</div>
+</body>
+</html>

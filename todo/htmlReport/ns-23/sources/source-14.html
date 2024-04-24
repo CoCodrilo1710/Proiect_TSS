@@ -1,0 +1,282 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > LauncherDiscoveryRequestBuilder</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">org.junit.platform.launcher.core</a>
+</div>
+
+<h1>Coverage Summary for Class: LauncherDiscoveryRequestBuilder (org.junit.platform.launcher.core)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">LauncherDiscoveryRequestBuilder</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    80%
+  </span>
+  <span class="absValue">
+    (12/15)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (6/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    67.7%
+  </span>
+  <span class="absValue">
+    (44/65)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;//
+&nbsp;// Source code recreated from a .class file by IntelliJ IDEA
+&nbsp;// (powered by FernFlower decompiler)
+&nbsp;//
+&nbsp;
+&nbsp;package org.junit.platform.launcher.core;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Arrays;
+&nbsp;import java.util.HashMap;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Map;
+&nbsp;import org.apiguardian.api.API;
+&nbsp;import org.apiguardian.api.API.Status;
+&nbsp;import org.junit.platform.commons.PreconditionViolationException;
+&nbsp;import org.junit.platform.commons.util.Preconditions;
+&nbsp;import org.junit.platform.engine.ConfigurationParameters;
+&nbsp;import org.junit.platform.engine.DiscoveryFilter;
+&nbsp;import org.junit.platform.engine.DiscoverySelector;
+&nbsp;import org.junit.platform.engine.Filter;
+&nbsp;import org.junit.platform.launcher.EngineFilter;
+&nbsp;import org.junit.platform.launcher.LauncherDiscoveryListener;
+&nbsp;import org.junit.platform.launcher.LauncherDiscoveryRequest;
+&nbsp;import org.junit.platform.launcher.PostDiscoveryFilter;
+&nbsp;import org.junit.platform.launcher.listeners.discovery.LauncherDiscoveryListeners;
+&nbsp;
+&nbsp;@API(
+&nbsp;    status = Status.STABLE,
+&nbsp;    since = &quot;1.0&quot;
+&nbsp;)
+&nbsp;public final class LauncherDiscoveryRequestBuilder {
+&nbsp;    public static final String DEFAULT_DISCOVERY_LISTENER_CONFIGURATION_PROPERTY_NAME = &quot;junit.platform.discovery.listener.default&quot;;
+&nbsp;    private static final String DEFAULT_DISCOVERY_LISTENER_CONFIGURATION_PROPERTY_VALUE = &quot;abortOnFailure&quot;;
+&nbsp;    private final List&lt;DiscoverySelector&gt; selectors = new ArrayList();
+&nbsp;    private final List&lt;EngineFilter&gt; engineFilters = new ArrayList();
+&nbsp;    private final List&lt;DiscoveryFilter&lt;?&gt;&gt; discoveryFilters = new ArrayList();
+&nbsp;    private final List&lt;PostDiscoveryFilter&gt; postDiscoveryFilters = new ArrayList();
+&nbsp;    private final Map&lt;String, String&gt; configurationParameters = new HashMap();
+&nbsp;    private final List&lt;LauncherDiscoveryListener&gt; discoveryListeners = new ArrayList();
+&nbsp;    private boolean implicitConfigurationParametersEnabled = true;
+&nbsp;    private ConfigurationParameters parentConfigurationParameters;
+&nbsp;
+&nbsp;    public static LauncherDiscoveryRequestBuilder request() {
+&nbsp;        return new LauncherDiscoveryRequestBuilder();
+&nbsp;    }
+&nbsp;
+&nbsp;    /** @deprecated */
+&nbsp;    @API(
+&nbsp;        status = Status.DEPRECATED,
+&nbsp;        since = &quot;1.8&quot;
+&nbsp;    )
+&nbsp;    @Deprecated
+&nbsp;    public LauncherDiscoveryRequestBuilder() {
+&nbsp;    }
+&nbsp;
+&nbsp;    public LauncherDiscoveryRequestBuilder selectors(DiscoverySelector... selectors) {
+&nbsp;        Preconditions.notNull(selectors, &quot;selectors array must not be null&quot;);
+&nbsp;        this.selectors(Arrays.asList(selectors));
+&nbsp;        return this;
+&nbsp;    }
+&nbsp;
+&nbsp;    public LauncherDiscoveryRequestBuilder selectors(List&lt;? extends DiscoverySelector&gt; selectors) {
+&nbsp;        Preconditions.notNull(selectors, &quot;selectors list must not be null&quot;);
+&nbsp;        Preconditions.containsNoNullElements(selectors, &quot;individual selectors must not be null&quot;);
+&nbsp;        this.selectors.addAll(selectors);
+&nbsp;        return this;
+&nbsp;    }
+&nbsp;
+&nbsp;    public LauncherDiscoveryRequestBuilder filters(Filter&lt;?&gt;... filters) {
+&nbsp;        Preconditions.notNull(filters, &quot;filters array must not be null&quot;);
+&nbsp;        Preconditions.containsNoNullElements(filters, &quot;individual filters must not be null&quot;);
+&nbsp;        Arrays.stream(filters).forEach(this::storeFilter);
+&nbsp;        return this;
+&nbsp;    }
+&nbsp;
+&nbsp;    public LauncherDiscoveryRequestBuilder configurationParameter(String key, String value) {
+&nbsp;        Preconditions.notBlank(key, &quot;configuration parameter key must not be null or blank&quot;);
+&nbsp;        this.configurationParameters.put(key, value);
+&nbsp;        return this;
+&nbsp;    }
+&nbsp;
+&nbsp;    public LauncherDiscoveryRequestBuilder configurationParameters(Map&lt;String, String&gt; configurationParameters) {
+&nbsp;        Preconditions.notNull(configurationParameters, &quot;configuration parameters map must not be null&quot;);
+&nbsp;        configurationParameters.forEach(this::configurationParameter);
+&nbsp;        return this;
+&nbsp;    }
+&nbsp;
+&nbsp;    @API(
+&nbsp;        status = Status.STABLE,
+&nbsp;        since = &quot;1.10&quot;
+&nbsp;    )
+&nbsp;    public LauncherDiscoveryRequestBuilder parentConfigurationParameters(ConfigurationParameters configurationParameters) {
+&nbsp;        Preconditions.notNull(configurationParameters, &quot;parent configuration parameters must not be null&quot;);
+&nbsp;        this.parentConfigurationParameters = configurationParameters;
+&nbsp;        return this;
+&nbsp;    }
+&nbsp;
+&nbsp;    @API(
+&nbsp;        status = Status.STABLE,
+<b class="fc">&nbsp;        since = &quot;1.10&quot;</b>
+<b class="fc">&nbsp;    )</b>
+<b class="fc">&nbsp;    public LauncherDiscoveryRequestBuilder listeners(LauncherDiscoveryListener... listeners) {</b>
+<b class="fc">&nbsp;        Preconditions.notNull(listeners, &quot;discovery listener array must not be null&quot;);</b>
+<b class="fc">&nbsp;        Preconditions.containsNoNullElements(listeners, &quot;individual discovery listeners must not be null&quot;);</b>
+<b class="fc">&nbsp;        this.discoveryListeners.addAll(Arrays.asList(listeners));</b>
+<b class="fc">&nbsp;        return this;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @API(
+&nbsp;        status = Status.STABLE,
+&nbsp;        since = &quot;1.10&quot;
+&nbsp;    )
+&nbsp;    public LauncherDiscoveryRequestBuilder enableImplicitConfigurationParameters(boolean enabled) {
+&nbsp;        this.implicitConfigurationParametersEnabled = enabled;
+<b class="fc">&nbsp;        return this;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void storeFilter(Filter&lt;?&gt; filter) {
+&nbsp;        if (filter instanceof EngineFilter) {
+&nbsp;            this.engineFilters.add((EngineFilter)filter);
+&nbsp;        } else if (filter instanceof PostDiscoveryFilter) {
+&nbsp;            this.postDiscoveryFilters.add((PostDiscoveryFilter)filter);
+<b class="fc">&nbsp;        } else {</b>
+&nbsp;            if (!(filter instanceof DiscoveryFilter)) {
+&nbsp;                throw new PreconditionViolationException(String.format(&quot;Filter [%s] must implement %s, %s, or %s.&quot;, filter, EngineFilter.class.getSimpleName(), PostDiscoveryFilter.class.getSimpleName(), DiscoveryFilter.class.getSimpleName()));
+&nbsp;            }
+&nbsp;
+&nbsp;            this.discoveryFilters.add((DiscoveryFilter)filter);
+&nbsp;        }
+&nbsp;
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    public LauncherDiscoveryRequest build() {</b>
+<b class="fc">&nbsp;        LauncherConfigurationParameters launcherConfigurationParameters = this.buildLauncherConfigurationParameters();</b>
+<b class="fc">&nbsp;        LauncherDiscoveryListener discoveryListener = this.getLauncherDiscoveryListener(launcherConfigurationParameters);</b>
+&nbsp;        return new DefaultDiscoveryRequest(this.selectors, this.engineFilters, this.discoveryFilters, this.postDiscoveryFilters, launcherConfigurationParameters, discoveryListener);
+&nbsp;    }
+&nbsp;
+&nbsp;    private LauncherConfigurationParameters buildLauncherConfigurationParameters() {
+&nbsp;        LauncherConfigurationParameters.Builder builder = LauncherConfigurationParameters.builder().explicitParameters(this.configurationParameters).enableImplicitProviders(this.implicitConfigurationParametersEnabled);
+&nbsp;        if (this.parentConfigurationParameters != null) {
+&nbsp;            builder.parentConfigurationParameters(this.parentConfigurationParameters);
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        return builder.build();</b>
+<b class="fc">&nbsp;    }</b>
+<b class="fc">&nbsp;</b>
+<b class="fc">&nbsp;    private LauncherDiscoveryListener getLauncherDiscoveryListener(ConfigurationParameters configurationParameters) {</b>
+&nbsp;        LauncherDiscoveryListener defaultDiscoveryListener = this.getDefaultLauncherDiscoveryListener(configurationParameters);
+&nbsp;        if (this.discoveryListeners.isEmpty()) {
+&nbsp;            return defaultDiscoveryListener;
+&nbsp;        } else if (this.discoveryListeners.contains(defaultDiscoveryListener)) {
+&nbsp;            return LauncherDiscoveryListeners.composite(this.discoveryListeners);
+&nbsp;        } else {
+&nbsp;            List&lt;LauncherDiscoveryListener&gt; allDiscoveryListeners = new ArrayList(this.discoveryListeners.size() + 1);
+&nbsp;            allDiscoveryListeners.addAll(this.discoveryListeners);
+&nbsp;            allDiscoveryListeners.add(defaultDiscoveryListener);
+&nbsp;            return LauncherDiscoveryListeners.composite(allDiscoveryListeners);
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private LauncherDiscoveryListener getDefaultLauncherDiscoveryListener(ConfigurationParameters configurationParameters) {
+&nbsp;        String value = (String)configurationParameters.get(&quot;junit.platform.discovery.listener.default&quot;).orElse(&quot;abortOnFailure&quot;);
+&nbsp;        return LauncherDiscoveryListeners.fromConfigurationParameter(&quot;junit.platform.discovery.listener.default&quot;, value);
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-24 08:58</div>
+</div>
+</body>
+</html>

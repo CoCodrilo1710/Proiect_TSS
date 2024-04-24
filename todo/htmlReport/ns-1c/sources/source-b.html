@@ -1,0 +1,304 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > MethodSelector</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">org.junit.platform.engine.discovery</a>
+</div>
+
+<h1>Coverage Summary for Class: MethodSelector (org.junit.platform.engine.discovery)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MethodSelector</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    27.3%
+  </span>
+  <span class="absValue">
+    (6/22)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    9.1%
+  </span>
+  <span class="absValue">
+    (2/22)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    19%
+  </span>
+  <span class="absValue">
+    (15/79)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;//
+&nbsp;// Source code recreated from a .class file by IntelliJ IDEA
+&nbsp;// (powered by FernFlower decompiler)
+&nbsp;//
+&nbsp;
+&nbsp;package org.junit.platform.engine.discovery;
+&nbsp;
+&nbsp;import java.lang.reflect.Method;
+&nbsp;import java.util.Objects;
+&nbsp;import org.apiguardian.api.API;
+&nbsp;import org.apiguardian.api.API.Status;
+&nbsp;import org.junit.platform.commons.PreconditionViolationException;
+&nbsp;import org.junit.platform.commons.function.Try;
+&nbsp;import org.junit.platform.commons.util.ClassUtils;
+&nbsp;import org.junit.platform.commons.util.ReflectionUtils;
+&nbsp;import org.junit.platform.commons.util.ToStringBuilder;
+&nbsp;import org.junit.platform.engine.DiscoverySelector;
+&nbsp;
+&nbsp;@API(
+&nbsp;    status = Status.STABLE,
+&nbsp;    since = &quot;1.0&quot;
+&nbsp;)
+&nbsp;public class MethodSelector implements DiscoverySelector {
+&nbsp;    private final ClassLoader classLoader;
+&nbsp;    private final String className;
+&nbsp;    private final String methodName;
+&nbsp;    private final String parameterTypeNames;
+&nbsp;    private volatile Class&lt;?&gt; javaClass;
+&nbsp;    private volatile Method javaMethod;
+&nbsp;    private volatile Class&lt;?&gt;[] parameterTypes;
+&nbsp;
+&nbsp;    MethodSelector(ClassLoader classLoader, String className, String methodName, String parameterTypeNames) {
+&nbsp;        this.classLoader = classLoader;
+&nbsp;        this.className = className;
+&nbsp;        this.methodName = methodName;
+&nbsp;        this.parameterTypeNames = parameterTypeNames;
+&nbsp;    }
+&nbsp;
+&nbsp;    MethodSelector(Class&lt;?&gt; javaClass, String methodName, String parameterTypeNames) {
+&nbsp;        this.classLoader = javaClass.getClassLoader();
+&nbsp;        this.javaClass = javaClass;
+&nbsp;        this.className = javaClass.getName();
+&nbsp;        this.methodName = methodName;
+&nbsp;        this.parameterTypeNames = parameterTypeNames;
+&nbsp;    }
+&nbsp;
+&nbsp;    MethodSelector(ClassLoader classLoader, String className, String methodName, Class&lt;?&gt;... parameterTypes) {
+&nbsp;        this.classLoader = classLoader;
+&nbsp;        this.className = className;
+&nbsp;        this.methodName = methodName;
+&nbsp;        this.parameterTypes = (Class[])parameterTypes.clone();
+&nbsp;        this.parameterTypeNames = ClassUtils.nullSafeToString(Class::getTypeName, this.parameterTypes);
+&nbsp;    }
+&nbsp;
+&nbsp;    MethodSelector(Class&lt;?&gt; javaClass, String methodName, Class&lt;?&gt;... parameterTypes) {
+&nbsp;        this.classLoader = javaClass.getClassLoader();
+&nbsp;        this.javaClass = javaClass;
+&nbsp;        this.className = javaClass.getName();
+&nbsp;        this.methodName = methodName;
+&nbsp;        this.parameterTypes = (Class[])parameterTypes.clone();
+&nbsp;        this.parameterTypeNames = ClassUtils.nullSafeToString(Class::getTypeName, this.parameterTypes);
+&nbsp;    }
+&nbsp;
+&nbsp;    MethodSelector(Class&lt;?&gt; javaClass, Method method) {
+&nbsp;        this.classLoader = javaClass.getClassLoader();
+&nbsp;        this.javaClass = javaClass;
+&nbsp;        this.className = javaClass.getName();
+&nbsp;        this.javaMethod = method;
+&nbsp;        this.methodName = method.getName();
+&nbsp;        this.parameterTypes = method.getParameterTypes();
+<b class="nc">&nbsp;        this.parameterTypeNames = ClassUtils.nullSafeToString(Class::getTypeName, this.parameterTypes);</b>
+<b class="nc">&nbsp;    }</b>
+<b class="nc">&nbsp;</b>
+<b class="nc">&nbsp;    @API(</b>
+<b class="nc">&nbsp;        status = Status.EXPERIMENTAL,</b>
+&nbsp;        since = &quot;1.10&quot;
+&nbsp;    )
+<b class="nc">&nbsp;    public ClassLoader getClassLoader() {</b>
+<b class="nc">&nbsp;        return this.classLoader;</b>
+<b class="nc">&nbsp;    }</b>
+<b class="nc">&nbsp;</b>
+<b class="nc">&nbsp;    public String getClassName() {</b>
+<b class="nc">&nbsp;        return this.className;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getMethodName() {
+&nbsp;        return this.methodName;
+&nbsp;    }
+<b class="nc">&nbsp;</b>
+<b class="nc">&nbsp;    /** @deprecated */</b>
+<b class="nc">&nbsp;    @Deprecated</b>
+<b class="nc">&nbsp;    @API(</b>
+<b class="nc">&nbsp;        status = Status.DEPRECATED,</b>
+<b class="nc">&nbsp;        since = &quot;1.10&quot;</b>
+&nbsp;    )
+&nbsp;    public String getMethodParameterTypes() {
+&nbsp;        return this.getParameterTypeNames();
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    @API(</b>
+<b class="nc">&nbsp;        status = Status.STABLE,</b>
+<b class="nc">&nbsp;        since = &quot;1.10&quot;</b>
+<b class="nc">&nbsp;    )</b>
+<b class="nc">&nbsp;    public String getParameterTypeNames() {</b>
+<b class="nc">&nbsp;        return this.parameterTypeNames;</b>
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    public Class&lt;?&gt; getJavaClass() {
+<b class="fc">&nbsp;        this.lazyLoadJavaClass();</b>
+<b class="fc">&nbsp;        return this.javaClass;</b>
+<b class="fc">&nbsp;    }</b>
+<b class="fc">&nbsp;</b>
+<b class="fc">&nbsp;    public Method getJavaMethod() {</b>
+<b class="fc">&nbsp;        this.lazyLoadJavaMethod();</b>
+<b class="fc">&nbsp;        return this.javaMethod;</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    @API(
+&nbsp;        status = Status.EXPERIMENTAL,
+&nbsp;        since = &quot;1.10&quot;
+&nbsp;    )
+&nbsp;    public Class&lt;?&gt;[] getParameterTypes() {
+&nbsp;        this.lazyLoadParameterTypes();
+&nbsp;        return (Class[])this.parameterTypes.clone();
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    private void lazyLoadJavaClass() {</b>
+&nbsp;        if (this.javaClass == null) {
+&nbsp;            Try&lt;Class&lt;?&gt;&gt; tryToLoadClass = this.classLoader == null ? ReflectionUtils.tryToLoadClass(this.className) : ReflectionUtils.tryToLoadClass(this.className, this.classLoader);
+&nbsp;            this.javaClass = (Class)tryToLoadClass.getOrThrow((cause) -&gt; {
+&nbsp;                return new PreconditionViolationException(&quot;Could not load class with name: &quot; + this.className, cause);
+&nbsp;            });
+&nbsp;        }
+<b class="nc">&nbsp;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void lazyLoadJavaMethod() {
+&nbsp;        if (this.javaMethod == null) {
+&nbsp;            this.lazyLoadJavaClass();
+&nbsp;            this.lazyLoadParameterTypes();
+<b class="nc">&nbsp;            if (this.parameterTypes.length &gt; 0) {</b>
+&nbsp;                this.javaMethod = (Method)ReflectionUtils.findMethod(this.javaClass, this.methodName, this.parameterTypes).orElseThrow(() -&gt; {
+&nbsp;                    return new PreconditionViolationException(String.format(&quot;Could not find method with name [%s] and parameter types [%s] in class [%s].&quot;, this.methodName, this.parameterTypeNames, this.javaClass.getName()));
+&nbsp;                });
+&nbsp;            } else {
+&nbsp;                this.javaMethod = (Method)ReflectionUtils.findMethod(this.javaClass, this.methodName, new Class[0]).orElseThrow(() -&gt; {
+&nbsp;                    return new PreconditionViolationException(String.format(&quot;Could not find method with name [%s] in class [%s].&quot;, this.methodName, this.javaClass.getName()));
+&nbsp;                });
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    private void lazyLoadParameterTypes() {
+&nbsp;        if (this.parameterTypes == null) {
+&nbsp;            this.lazyLoadJavaClass();
+&nbsp;            this.parameterTypes = ReflectionUtils.resolveParameterTypes(this.javaClass, this.methodName, this.parameterTypeNames);
+<b class="nc">&nbsp;        }</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    @API(
+&nbsp;        status = Status.STABLE,
+&nbsp;        since = &quot;1.3&quot;
+&nbsp;    )
+&nbsp;    public boolean equals(Object o) {
+&nbsp;        if (this == o) {
+&nbsp;            return true;
+&nbsp;        } else if (o != null &amp;&amp; this.getClass() == o.getClass()) {
+&nbsp;            MethodSelector that = (MethodSelector)o;
+&nbsp;            return Objects.equals(this.className, that.className) &amp;&amp; Objects.equals(this.methodName, that.methodName) &amp;&amp; Objects.equals(this.parameterTypeNames, that.parameterTypeNames);
+&nbsp;        } else {
+&nbsp;            return false;
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @API(
+&nbsp;        status = Status.STABLE,
+<b class="nc">&nbsp;        since = &quot;1.3&quot;</b>
+&nbsp;    )
+&nbsp;    public int hashCode() {
+&nbsp;        return Objects.hash(new Object[]{this.className, this.methodName, this.parameterTypeNames});
+&nbsp;    }
+&nbsp;
+&nbsp;    public String toString() {
+&nbsp;        return (new ToStringBuilder(this)).append(&quot;className&quot;, this.getClassName()).append(&quot;methodName&quot;, this.getMethodName()).append(&quot;parameterTypes&quot;, this.getParameterTypeNames()).append(&quot;classLoader&quot;, this.getClassLoader()).toString();
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-24 08:58</div>
+</div>
+</body>
+</html>

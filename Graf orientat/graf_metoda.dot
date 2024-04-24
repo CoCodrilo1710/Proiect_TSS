@@ -1,0 +1,46 @@
+digraph task_selection {
+
+  rankdir=TD;
+
+  // Nodes
+  node [shape=box];
+  Start [shape=ellipse];
+  Check_number_of_tasks [label="IF Check number of tasks"];
+  Throw_1 [label="Throw Number of tasks does not match"];
+  Nr_oftasksBigger1Smaller20 [label="IF Nr.of tasks between 1 and 20"];
+  Throw_2 [label="Throw (Invalid Number of tasks)"];
+  For_loop [label="For i = 0 to numberOfTasks-1"];
+  Check_task_status [label="IF Task not Completed"];
+  no_prior_task_selected [label="IF no prior task was selected"];
+  atrib_task [label="atrib task"];
+  Check_Highest_priority_task [label="IF check highest priority task"];
+  atrib_task2 [label="atrib task"];
+  check_atribTask2 [label="IF check highest priority task 2"];
+  atrib_task3 [label="atrib task"];
+  check_Task_NULL [label="IF check_task_null"];
+  Throw_3 [label="Throw (No available task)"];
+  End [shape=ellipse];
+
+  
+  // Edges
+  Start -> Check_number_of_tasks;
+  Check_number_of_tasks -> Throw_1 [label="Yes"];
+  Check_number_of_tasks -> Nr_oftasksBigger1Smaller20 [label="No"];
+  Check_number_of_tasks -> check_Task_NULL [label="Exit"];
+  Nr_oftasksBigger1Smaller20 -> Throw_2 [label="Yes"];
+  Nr_oftasksBigger1Smaller20 -> For_loop [label="Exit"];
+  For_loop -> Check_task_status;
+  Check_task_status -> no_prior_task_selected [label="Yes"];
+  Check_task_status -> For_loop;
+  no_prior_task_selected -> atrib_task [label="Yes"];
+  no_prior_task_selected -> Check_Highest_priority_task [label="No"];
+  no_prior_task_selected -> For_loop;
+  Check_Highest_priority_task -> atrib_task2 [label="Yes"];
+  Check_Highest_priority_task -> check_atribTask2 [label="No"];
+  Check_Highest_priority_task -> For_loop;
+  check_atribTask2 -> For_loop;
+  check_atribTask2 -> atrib_task3 [label="Yes"];
+  For_loop -> check_Task_NULL [label="Exit"];
+  check_Task_NULL -> Throw_3 [label="Yes"];
+  check_Task_NULL -> End [label="Exit"];
+}
