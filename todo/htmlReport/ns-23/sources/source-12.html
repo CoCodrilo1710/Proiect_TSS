@@ -1,0 +1,310 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > LauncherConfig</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">org.junit.platform.launcher.core</a>
+</div>
+
+<h1>Coverage Summary for Class: LauncherConfig (org.junit.platform.launcher.core)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">LauncherConfig</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">LauncherConfig$Builder</td>
+<td class="coverageStat">
+  <span class="percent">
+    23.1%
+  </span>
+  <span class="absValue">
+    (3/13)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    30.2%
+  </span>
+  <span class="absValue">
+    (13/43)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    33.3%
+  </span>
+  <span class="absValue">
+    (5/15)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    33.3%
+  </span>
+  <span class="absValue">
+    (15/45)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;//
+&nbsp;// Source code recreated from a .class file by IntelliJ IDEA
+&nbsp;// (powered by FernFlower decompiler)
+&nbsp;//
+&nbsp;
+&nbsp;package org.junit.platform.launcher.core;
+&nbsp;
+&nbsp;import java.util.Collection;
+&nbsp;import java.util.Collections;
+&nbsp;import java.util.LinkedHashSet;
+&nbsp;import org.apiguardian.api.API;
+&nbsp;import org.apiguardian.api.API.Status;
+&nbsp;import org.junit.platform.commons.util.Preconditions;
+&nbsp;import org.junit.platform.engine.TestEngine;
+&nbsp;import org.junit.platform.launcher.LauncherDiscoveryListener;
+&nbsp;import org.junit.platform.launcher.LauncherSessionListener;
+&nbsp;import org.junit.platform.launcher.PostDiscoveryFilter;
+&nbsp;import org.junit.platform.launcher.TestExecutionListener;
+&nbsp;
+&nbsp;@API(
+&nbsp;    status = Status.STABLE,
+&nbsp;    since = &quot;1.7&quot;
+&nbsp;)
+&nbsp;public interface LauncherConfig {
+&nbsp;    LauncherConfig DEFAULT = builder().build();
+&nbsp;
+&nbsp;    boolean isTestEngineAutoRegistrationEnabled();
+&nbsp;
+&nbsp;    @API(
+&nbsp;        status = Status.STABLE,
+&nbsp;        since = &quot;1.10&quot;
+&nbsp;    )
+&nbsp;    boolean isLauncherSessionListenerAutoRegistrationEnabled();
+&nbsp;
+&nbsp;    @API(
+&nbsp;        status = Status.STABLE,
+&nbsp;        since = &quot;1.10&quot;
+&nbsp;    )
+&nbsp;    boolean isLauncherDiscoveryListenerAutoRegistrationEnabled();
+&nbsp;
+&nbsp;    boolean isTestExecutionListenerAutoRegistrationEnabled();
+&nbsp;
+&nbsp;    @API(
+&nbsp;        status = Status.STABLE,
+&nbsp;        since = &quot;1.10&quot;
+&nbsp;    )
+&nbsp;    boolean isPostDiscoveryFilterAutoRegistrationEnabled();
+&nbsp;
+&nbsp;    Collection&lt;TestEngine&gt; getAdditionalTestEngines();
+&nbsp;
+&nbsp;    @API(
+&nbsp;        status = Status.STABLE,
+&nbsp;        since = &quot;1.10&quot;
+&nbsp;    )
+&nbsp;    Collection&lt;LauncherSessionListener&gt; getAdditionalLauncherSessionListeners();
+&nbsp;
+&nbsp;    @API(
+&nbsp;        status = Status.STABLE,
+<b class="fc">&nbsp;        since = &quot;1.10&quot;</b>
+&nbsp;    )
+&nbsp;    Collection&lt;LauncherDiscoveryListener&gt; getAdditionalLauncherDiscoveryListeners();
+&nbsp;
+&nbsp;    Collection&lt;TestExecutionListener&gt; getAdditionalTestExecutionListeners();
+&nbsp;
+&nbsp;    @API(
+&nbsp;        status = Status.STABLE,
+&nbsp;        since = &quot;1.10&quot;
+&nbsp;    )
+&nbsp;    Collection&lt;PostDiscoveryFilter&gt; getAdditionalPostDiscoveryFilters();
+&nbsp;
+&nbsp;    static Builder builder() {
+&nbsp;        return new Builder();
+&nbsp;    }
+&nbsp;
+&nbsp;    public static class Builder {
+&nbsp;        private boolean engineAutoRegistrationEnabled;
+&nbsp;        private boolean launcherSessionListenerAutoRegistrationEnabled;
+&nbsp;        private boolean launcherDiscoveryListenerAutoRegistrationEnabled;
+&nbsp;        private boolean testExecutionListenerAutoRegistrationEnabled;
+&nbsp;        private boolean postDiscoveryFilterAutoRegistrationEnabled;
+&nbsp;        private final Collection&lt;TestEngine&gt; engines;
+&nbsp;        private final Collection&lt;LauncherSessionListener&gt; sessionListeners;
+&nbsp;        private final Collection&lt;LauncherDiscoveryListener&gt; discoveryListeners;
+&nbsp;        private final Collection&lt;TestExecutionListener&gt; executionListeners;
+&nbsp;        private final Collection&lt;PostDiscoveryFilter&gt; postDiscoveryFilters;
+&nbsp;
+&nbsp;        private Builder() {
+&nbsp;            this.engineAutoRegistrationEnabled = true;
+&nbsp;            this.launcherSessionListenerAutoRegistrationEnabled = true;
+&nbsp;            this.launcherDiscoveryListenerAutoRegistrationEnabled = true;
+&nbsp;            this.testExecutionListenerAutoRegistrationEnabled = true;
+&nbsp;            this.postDiscoveryFilterAutoRegistrationEnabled = true;
+&nbsp;            this.engines = new LinkedHashSet();
+&nbsp;            this.sessionListeners = new LinkedHashSet();
+&nbsp;            this.discoveryListeners = new LinkedHashSet();
+&nbsp;            this.executionListeners = new LinkedHashSet();
+&nbsp;            this.postDiscoveryFilters = new LinkedHashSet();
+&nbsp;        }
+&nbsp;
+&nbsp;        @API(
+&nbsp;            status = Status.STABLE,
+&nbsp;            since = &quot;1.10&quot;
+&nbsp;        )
+&nbsp;        public Builder enableLauncherSessionListenerAutoRegistration(boolean enabled) {
+&nbsp;            this.launcherSessionListenerAutoRegistrationEnabled = enabled;
+&nbsp;            return this;
+&nbsp;        }
+&nbsp;
+&nbsp;        @API(
+&nbsp;            status = Status.STABLE,
+&nbsp;            since = &quot;1.10&quot;
+&nbsp;        )
+&nbsp;        public Builder enableLauncherDiscoveryListenerAutoRegistration(boolean enabled) {
+&nbsp;            this.launcherDiscoveryListenerAutoRegistrationEnabled = enabled;
+&nbsp;            return this;
+&nbsp;        }
+&nbsp;
+&nbsp;        public Builder enableTestExecutionListenerAutoRegistration(boolean enabled) {
+&nbsp;            this.testExecutionListenerAutoRegistrationEnabled = enabled;
+&nbsp;            return this;
+&nbsp;        }
+&nbsp;
+&nbsp;        public Builder enableTestEngineAutoRegistration(boolean enabled) {
+&nbsp;            this.engineAutoRegistrationEnabled = enabled;
+&nbsp;            return this;
+&nbsp;        }
+&nbsp;
+&nbsp;        @API(
+&nbsp;            status = Status.STABLE,
+&nbsp;            since = &quot;1.10&quot;
+&nbsp;        )
+&nbsp;        public Builder enablePostDiscoveryFilterAutoRegistration(boolean enabled) {
+&nbsp;            this.postDiscoveryFilterAutoRegistrationEnabled = enabled;
+&nbsp;            return this;
+&nbsp;        }
+&nbsp;
+&nbsp;        public Builder addTestEngines(TestEngine... engines) {
+&nbsp;            Preconditions.notNull(engines, &quot;TestEngine array must not be null&quot;);
+&nbsp;            Preconditions.containsNoNullElements(engines, &quot;TestEngine array must not contain null elements&quot;);
+&nbsp;            Collections.addAll(this.engines, engines);
+&nbsp;            return this;
+&nbsp;        }
+&nbsp;
+&nbsp;        public Builder addLauncherSessionListeners(LauncherSessionListener... listeners) {
+&nbsp;            Preconditions.notNull(listeners, &quot;LauncherSessionListener array must not be null&quot;);
+&nbsp;            Preconditions.containsNoNullElements(listeners, &quot;LauncherSessionListener array must not contain null elements&quot;);
+&nbsp;            Collections.addAll(this.sessionListeners, listeners);
+&nbsp;            return this;
+&nbsp;        }
+&nbsp;
+&nbsp;        public Builder addLauncherDiscoveryListeners(LauncherDiscoveryListener... listeners) {
+&nbsp;            Preconditions.notNull(listeners, &quot;LauncherDiscoveryListener array must not be null&quot;);
+&nbsp;            Preconditions.containsNoNullElements(listeners, &quot;LauncherDiscoveryListener array must not contain null elements&quot;);
+&nbsp;            Collections.addAll(this.discoveryListeners, listeners);
+&nbsp;            return this;
+&nbsp;        }
+&nbsp;
+&nbsp;        public Builder addTestExecutionListeners(TestExecutionListener... listeners) {
+&nbsp;            Preconditions.notNull(listeners, &quot;TestExecutionListener array must not be null&quot;);
+&nbsp;            Preconditions.containsNoNullElements(listeners, &quot;TestExecutionListener array must not contain null elements&quot;);
+&nbsp;            Collections.addAll(this.executionListeners, listeners);
+&nbsp;            return this;
+&nbsp;        }
+&nbsp;
+&nbsp;        @API(
+&nbsp;            status = Status.STABLE,
+&nbsp;            since = &quot;1.10&quot;
+&nbsp;        )
+&nbsp;        public Builder addPostDiscoveryFilters(PostDiscoveryFilter... filters) {
+&nbsp;            Preconditions.notNull(filters, &quot;PostDiscoveryFilter array must not be null&quot;);
+&nbsp;            Preconditions.containsNoNullElements(filters, &quot;PostDiscoveryFilter array must not contain null elements&quot;);
+&nbsp;            Collections.addAll(this.postDiscoveryFilters, filters);
+<b class="fc">&nbsp;            return this;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        public LauncherConfig build() {
+&nbsp;            return new DefaultLauncherConfig(this.engineAutoRegistrationEnabled, this.launcherSessionListenerAutoRegistrationEnabled, this.launcherDiscoveryListenerAutoRegistrationEnabled, this.testExecutionListenerAutoRegistrationEnabled, this.postDiscoveryFilterAutoRegistrationEnabled, this.engines, this.sessionListeners, this.discoveryListeners, this.executionListeners, this.postDiscoveryFilters);
+&nbsp;        }
+<b class="fc">&nbsp;    }</b>
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-24 08:58</div>
+</div>
+</body>
+</html>

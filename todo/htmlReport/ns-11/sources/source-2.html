@@ -1,0 +1,292 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > AbstractOrderingVisitor</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">org.junit.jupiter.engine.discovery</a>
+</div>
+
+<h1>Coverage Summary for Class: AbstractOrderingVisitor (org.junit.jupiter.engine.discovery)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AbstractOrderingVisitor</td>
+<td class="coverageStat">
+  <span class="percent">
+    83.3%
+  </span>
+  <span class="absValue">
+    (5/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    41.7%
+  </span>
+  <span class="absValue">
+    (5/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    41.9%
+  </span>
+  <span class="absValue">
+    (18/43)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">AbstractOrderingVisitor$DescriptorWrapperOrderer</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (3/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (1/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    66.7%
+  </span>
+  <span class="absValue">
+    (6/9)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">AbstractOrderingVisitor$MessageGenerator</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    66.7%
+  </span>
+  <span class="absValue">
+    (8/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    42.9%
+  </span>
+  <span class="absValue">
+    (6/14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    46.2%
+  </span>
+  <span class="absValue">
+    (24/52)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;//
+&nbsp;// Source code recreated from a .class file by IntelliJ IDEA
+&nbsp;// (powered by FernFlower decompiler)
+&nbsp;//
+&nbsp;
+&nbsp;package org.junit.jupiter.engine.discovery;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.LinkedHashSet;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Objects;
+&nbsp;import java.util.Set;
+&nbsp;import java.util.function.Consumer;
+&nbsp;import java.util.function.Function;
+&nbsp;import java.util.stream.Collectors;
+&nbsp;import java.util.stream.Stream;
+&nbsp;import org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor;
+&nbsp;import org.junit.platform.commons.logging.Logger;
+&nbsp;import org.junit.platform.commons.logging.LoggerFactory;
+&nbsp;import org.junit.platform.commons.util.UnrecoverableExceptions;
+&nbsp;import org.junit.platform.engine.TestDescriptor;
+&nbsp;
+&nbsp;abstract class AbstractOrderingVisitor&lt;PARENT extends TestDescriptor, CHILD extends TestDescriptor, WRAPPER extends AbstractAnnotatedDescriptorWrapper&lt;?&gt;&gt; implements TestDescriptor.Visitor {
+&nbsp;    private static final Logger logger = LoggerFactory.getLogger(AbstractOrderingVisitor.class);
+&nbsp;
+&nbsp;    AbstractOrderingVisitor() {
+&nbsp;    }
+&nbsp;
+&nbsp;    protected void doWithMatchingDescriptor(Class&lt;PARENT&gt; parentTestDescriptorType, TestDescriptor testDescriptor, Consumer&lt;PARENT&gt; action, Function&lt;PARENT, String&gt; errorMessageBuilder) {
+&nbsp;        if (parentTestDescriptorType.isInstance(testDescriptor)) {
+&nbsp;            PARENT parentTestDescriptor = testDescriptor;
+&nbsp;
+&nbsp;            try {
+&nbsp;                action.accept(parentTestDescriptor);
+&nbsp;            } catch (Throwable var7) {
+&nbsp;                UnrecoverableExceptions.rethrowIfUnrecoverable(var7);
+&nbsp;                logger.error(var7, () -&gt; {
+&nbsp;                    return (String)errorMessageBuilder.apply(testDescriptor);
+<b class="fc">&nbsp;                });</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    protected void orderChildrenTestDescriptors(TestDescriptor parentTestDescriptor, Class&lt;CHILD&gt; matchingChildrenType, Function&lt;CHILD, WRAPPER&gt; descriptorWrapperFactory, AbstractOrderingVisitor&lt;PARENT, CHILD, WRAPPER&gt;.DescriptorWrapperOrderer descriptorWrapperOrderer) {
+&nbsp;        Set&lt;? extends TestDescriptor&gt; children = parentTestDescriptor.getChildren();
+&nbsp;        Stream var10000 = children.stream();
+<b class="fc">&nbsp;        Objects.requireNonNull(matchingChildrenType);</b>
+<b class="fc">&nbsp;        var10000 = var10000.filter(matchingChildrenType::isInstance);</b>
+&nbsp;        Objects.requireNonNull(matchingChildrenType);
+<b class="fc">&nbsp;        List&lt;WRAPPER&gt; matchingDescriptorWrappers = (List)var10000.map(matchingChildrenType::cast).map(descriptorWrapperFactory).collect(Collectors.toCollection(ArrayList::new));</b>
+&nbsp;        if (!matchingDescriptorWrappers.isEmpty()) {
+<b class="nc">&nbsp;            if (descriptorWrapperOrderer.canOrderWrappers()) {</b>
+<b class="nc">&nbsp;                List&lt;TestDescriptor&gt; nonMatchingTestDescriptors = (List)children.stream().filter((childTestDescriptor) -&gt; {</b>
+<b class="nc">&nbsp;                    return !matchingChildrenType.isInstance(childTestDescriptor);</b>
+<b class="fc">&nbsp;                }).collect(Collectors.toList());</b>
+&nbsp;                Set&lt;WRAPPER&gt; originalWrappers = new LinkedHashSet(matchingDescriptorWrappers);
+&nbsp;                descriptorWrapperOrderer.orderWrappers(matchingDescriptorWrappers);
+&nbsp;                int difference = matchingDescriptorWrappers.size() - originalWrappers.size();
+&nbsp;                if (difference &gt; 0) {
+&nbsp;                    descriptorWrapperOrderer.logDescriptorsAddedWarning(difference);
+&nbsp;                } else if (difference &lt; 0) {
+<b class="fc">&nbsp;                    descriptorWrapperOrderer.logDescriptorsRemovedWarning(difference);</b>
+&nbsp;                }
+<b class="fc">&nbsp;</b>
+<b class="fc">&nbsp;                var10000 = matchingDescriptorWrappers.stream();</b>
+<b class="fc">&nbsp;                Objects.requireNonNull(originalWrappers);</b>
+<b class="fc">&nbsp;                Set&lt;TestDescriptor&gt; orderedTestDescriptors = (Set)var10000.filter(originalWrappers::contains).map(AbstractAnnotatedDescriptorWrapper::getTestDescriptor).collect(Collectors.toCollection(LinkedHashSet::new));</b>
+<b class="fc">&nbsp;                var10000 = Stream.concat(orderedTestDescriptors.stream(), nonMatchingTestDescriptors.stream());</b>
+&nbsp;                Objects.requireNonNull(parentTestDescriptor);
+&nbsp;                var10000.forEach(parentTestDescriptor::removeChild);
+<b class="fc">&nbsp;                if (matchingChildrenType == ClassBasedTestDescriptor.class) {</b>
+&nbsp;                    var10000 = Stream.concat(nonMatchingTestDescriptors.stream(), orderedTestDescriptors.stream());
+&nbsp;                    Objects.requireNonNull(parentTestDescriptor);
+&nbsp;                    var10000.forEach(parentTestDescriptor::addChild);
+<b class="pc">&nbsp;                } else {</b>
+<b class="nc">&nbsp;                    var10000 = Stream.concat(orderedTestDescriptors.stream(), nonMatchingTestDescriptors.stream());</b>
+<b class="nc">&nbsp;                    Objects.requireNonNull(parentTestDescriptor);</b>
+<b class="nc">&nbsp;                    var10000.forEach(parentTestDescriptor::addChild);</b>
+&nbsp;                }
+&nbsp;            }
+<b class="nc">&nbsp;</b>
+&nbsp;            matchingDescriptorWrappers.forEach((descriptorWrapper) -&gt; {
+<b class="nc">&nbsp;                TestDescriptor newParentTestDescriptor = descriptorWrapper.getTestDescriptor();</b>
+&nbsp;                AbstractOrderingVisitor&lt;PARENT, CHILD, WRAPPER&gt;.DescriptorWrapperOrderer newDescriptorWrapperOrderer = this.getDescriptorWrapperOrderer(descriptorWrapperOrderer, descriptorWrapper);
+<b class="nc">&nbsp;                this.orderChildrenTestDescriptors(newParentTestDescriptor, matchingChildrenType, descriptorWrapperFactory, newDescriptorWrapperOrderer);</b>
+<b class="nc">&nbsp;            });</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;    }
+<b class="nc">&nbsp;</b>
+<b class="nc">&nbsp;    protected AbstractOrderingVisitor&lt;PARENT, CHILD, WRAPPER&gt;.DescriptorWrapperOrderer getDescriptorWrapperOrderer(AbstractOrderingVisitor&lt;PARENT, CHILD, WRAPPER&gt;.DescriptorWrapperOrderer inheritedDescriptorWrapperOrderer, AbstractAnnotatedDescriptorWrapper&lt;?&gt; descriptorWrapper) {</b>
+&nbsp;        return inheritedDescriptorWrapperOrderer;
+&nbsp;    }
+<b class="nc">&nbsp;</b>
+<b class="nc">&nbsp;    protected class DescriptorWrapperOrderer {</b>
+<b class="nc">&nbsp;        private final Consumer&lt;List&lt;WRAPPER&gt;&gt; orderingAction;</b>
+<b class="nc">&nbsp;        private final MessageGenerator descriptorsAddedMessageGenerator;</b>
+&nbsp;        private final MessageGenerator descriptorsRemovedMessageGenerator;
+&nbsp;
+&nbsp;        DescriptorWrapperOrderer(Consumer&lt;List&lt;WRAPPER&gt;&gt; orderingAction, MessageGenerator descriptorsAddedMessageGenerator, MessageGenerator descriptorsRemovedMessageGenerator) {
+<b class="nc">&nbsp;            this.orderingAction = orderingAction;</b>
+<b class="nc">&nbsp;            this.descriptorsAddedMessageGenerator = descriptorsAddedMessageGenerator;</b>
+&nbsp;            this.descriptorsRemovedMessageGenerator = descriptorsRemovedMessageGenerator;
+&nbsp;        }
+&nbsp;
+&nbsp;        private boolean canOrderWrappers() {
+&nbsp;            return this.orderingAction != null;
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        private void orderWrappers(List&lt;WRAPPER&gt; wrappers) {</b>
+<b class="nc">&nbsp;            this.orderingAction.accept(wrappers);</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;
+&nbsp;        private void logDescriptorsAddedWarning(int number) {
+&nbsp;            AbstractOrderingVisitor.logger.warn(() -&gt; {
+&nbsp;                return this.descriptorsAddedMessageGenerator.generateMessage(number);
+&nbsp;            });
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;</b>
+&nbsp;        private void logDescriptorsRemovedWarning(int number) {
+&nbsp;            AbstractOrderingVisitor.logger.warn(() -&gt; {
+&nbsp;                return this.descriptorsRemovedMessageGenerator.generateMessage(Math.abs(number));
+&nbsp;            });
+<b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;    }</b>
+<b class="fc">&nbsp;</b>
+&nbsp;    @FunctionalInterface
+&nbsp;    protected interface MessageGenerator {
+<b class="fc">&nbsp;        String generateMessage(int var1);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-24 08:58</div>
+</div>
+</body>
+</html>

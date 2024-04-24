@@ -5,12 +5,15 @@ import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import model.Consts;
+import model.Priority;
+import model.Status;
 import model.Task;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Getter
 public class TaskService {
@@ -32,7 +35,6 @@ public class TaskService {
         if (index < 0 || index >= tasks.size()) {
             throw new IllegalArgumentException("Invalid task number");
         }
-
         tasks.set(index, task);
     }
 
@@ -71,5 +73,76 @@ public class TaskService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public Task findWhatTaskToDoNext(int numberOfTasks) {
+        Task highestPriorityShortestEstimateTask = null;
+
+        //numberoftasks must be the same as the size of the lists
+        if (numberOfTasks != tasks.size()) {
+            throw new IllegalArgumentException("Number of tasks does not match the size of the tasks list");
+        }
+        else {
+            // numberOfTasks must be between 1 and 20
+            if (tasks.isEmpty() || numberOfTasks <= 0 || numberOfTasks > 20) {
+                throw new IllegalArgumentException("Invalid number of tasks or empty list");
+            }
+
+            for (int i = 0; i < numberOfTasks; i++) {
+                Task task = tasks.get(i);
+
+
+                // make sure it's not completed
+                if (task.getStatus() != Status.COMPLETE) {
+
+                    // if no prior task was selected, select task
+                    if (highestPriorityShortestEstimateTask == null) {
+                        highestPriorityShortestEstimateTask = task;
+                    } else {
+                        // check to see if the task is of higher priority and if tasks have the same priority check time estimate
+                        if (task.getPriority().getLevel() > highestPriorityShortestEstimateTask.getPriority().getLevel()) {
+                            highestPriorityShortestEstimateTask = task;
+                        } else if (task.getPriority() == highestPriorityShortestEstimateTask.getPriority() &&
+                                task.getTimeEstimate() < highestPriorityShortestEstimateTask.getTimeEstimate()) {
+                            highestPriorityShortestEstimateTask = task;
+                        }
+                    }
+                }
+            }
+
+            if (highestPriorityShortestEstimateTask == null) {
+                throw new IllegalStateException("No available tasks to do");
+            }
+
+        }return highestPriorityShortestEstimateTask;
+    }
+
+    public Task recommendTask(int priority, int timeEstimate) {
+        if(priority < 1 || priority > 3) {
+            throw new IllegalArgumentException("Invalid priority");
+        }
+
+        if(timeEstimate <= 0) {
+            throw new IllegalArgumentException("Invalid time estimate");
+        }
+
+        Priority priorityEnum = Priority.fromLevel(priority);
+
+        Task recommendedTask = null;
+        List<Task> filteredTasks = tasks
+                        .stream()
+                        .filter(task -> task.getPriority() == priorityEnum && task.getTimeEstimate() <= timeEstimate && task.getStatus() != Status.COMPLETE)
+                        .toList();
+
+        for (Task task : filteredTasks) {
+            if(recommendedTask == null || task.getTimeEstimate() < recommendedTask.getTimeEstimate()) {
+                recommendedTask = task;
+            }
+        }
+
+        if (recommendedTask == null) {
+            throw new NoSuchElementException("No task with required properties found");
+        }
+        return recommendedTask;
     }
 }

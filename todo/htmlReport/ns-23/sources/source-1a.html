@@ -1,0 +1,134 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > ServiceLoaderRegistry</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">org.junit.platform.launcher.core</a>
+</div>
+
+<h1>Coverage Summary for Class: ServiceLoaderRegistry (org.junit.platform.launcher.core)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ServiceLoaderRegistry</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (2/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    66.7%
+  </span>
+  <span class="absValue">
+    (4/6)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;//
+&nbsp;// Source code recreated from a .class file by IntelliJ IDEA
+&nbsp;// (powered by FernFlower decompiler)
+&nbsp;//
+&nbsp;
+&nbsp;package org.junit.platform.launcher.core;
+&nbsp;
+&nbsp;import java.util.ServiceLoader;
+&nbsp;import java.util.stream.Collectors;
+&nbsp;import java.util.stream.StreamSupport;
+&nbsp;import org.junit.platform.commons.logging.Logger;
+&nbsp;import org.junit.platform.commons.logging.LoggerFactory;
+&nbsp;import org.junit.platform.commons.util.ClassLoaderUtils;
+&nbsp;
+&nbsp;class ServiceLoaderRegistry {
+&nbsp;    ServiceLoaderRegistry() {
+&nbsp;    }
+&nbsp;
+&nbsp;    static &lt;T&gt; Iterable&lt;T&gt; load(Class&lt;T&gt; serviceProviderClass) {
+&nbsp;        Iterable&lt;T&gt; listeners = ServiceLoader.load(serviceProviderClass, ClassLoaderUtils.getDefaultClassLoader());
+&nbsp;        getLogger().config(() -&gt; {
+&nbsp;            return &quot;Loaded &quot; + serviceProviderClass.getSimpleName() + &quot; instances: &quot; + StreamSupport.stream(listeners.spliterator(), false).map(Object::toString).collect(Collectors.toList());
+&nbsp;        });
+&nbsp;        return listeners;
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    private static Logger getLogger() {
+<b class="fc">&nbsp;        return LoggerFactory.getLogger(ServiceLoaderRegistry.class);</b>
+<b class="fc">&nbsp;    }</b>
+<b class="nc">&nbsp;}</b>
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-24 08:58</div>
+</div>
+</body>
+</html>

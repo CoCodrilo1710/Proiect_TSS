@@ -42,4 +42,9 @@ public class Task {
     public int hashCode() {
         return Objects.hash(getDescription(), getPriority(), getStatus(), getHourEstimate());
     }
+
+    public Integer getTimeEstimate() {
+        return hourEstimate;
+    }
+
 }
