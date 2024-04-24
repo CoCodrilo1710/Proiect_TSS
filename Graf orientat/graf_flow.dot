@@ -1,0 +1,38 @@
+digraph AppFlow {
+    node [shape=rectangle];
+
+    start [shape=ellipse, label="Start"];
+    end [shape=ellipse, label="End"];
+
+    start -> run;
+
+    run -> printGreeting;
+    printGreeting -> printMenu;
+
+    printMenu -> chooseOption [label="user input"];
+    chooseOption -> addTask [label="1"];
+    chooseOption -> updateTask [label="2"];
+    chooseOption -> removeTask [label="3"];
+    chooseOption -> printTasks [label="4"];
+    chooseOption -> seeTask [label="5"];
+    chooseOption -> findWhatTaskToDoNext [label="6"];
+    chooseOption -> end [label="7"];
+
+    addTask -> printMenu;
+    updateTask -> printMenu;
+    removeTask -> printMenu;
+    printTasks -> printMenu;
+    seeTask -> printMenu;
+    findWhatTaskToDoNext -> printMenu;
+
+    printMenu -> handleInvalidInput [label="exception"];
+    handleInvalidInput -> printMenu;
+
+    TaskService -> addTask;
+    TaskService -> getByIndex;
+    TaskService -> updateTask;
+    TaskService -> removeTask;
+    TaskService -> printTasks;
+    TaskService -> saveToJson;
+    TaskService -> findWhatTaskToDoNext;
+}
