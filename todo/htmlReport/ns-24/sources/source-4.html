@@ -1,0 +1,225 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > UniqueIdTrackingListener</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">org.junit.platform.launcher.listeners</a>
+</div>
+
+<h1>Coverage Summary for Class: UniqueIdTrackingListener (org.junit.platform.launcher.listeners)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">UniqueIdTrackingListener</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    71.4%
+  </span>
+  <span class="absValue">
+    (5/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    33.3%
+  </span>
+  <span class="absValue">
+    (2/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    28%
+  </span>
+  <span class="absValue">
+    (7/25)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;//
+&nbsp;// Source code recreated from a .class file by IntelliJ IDEA
+&nbsp;// (powered by FernFlower decompiler)
+&nbsp;//
+&nbsp;
+&nbsp;package org.junit.platform.launcher.listeners;
+&nbsp;
+&nbsp;import java.io.IOException;
+&nbsp;import java.io.PrintWriter;
+&nbsp;import java.nio.charset.StandardCharsets;
+&nbsp;import java.nio.file.Files;
+&nbsp;import java.nio.file.Path;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Objects;
+&nbsp;import org.apiguardian.api.API;
+&nbsp;import org.apiguardian.api.API.Status;
+&nbsp;import org.junit.platform.commons.logging.Logger;
+&nbsp;import org.junit.platform.commons.logging.LoggerFactory;
+&nbsp;import org.junit.platform.engine.ConfigurationParameters;
+&nbsp;import org.junit.platform.engine.TestExecutionResult;
+&nbsp;import org.junit.platform.launcher.TestExecutionListener;
+&nbsp;import org.junit.platform.launcher.TestIdentifier;
+&nbsp;import org.junit.platform.launcher.TestPlan;
+&nbsp;
+&nbsp;@API(
+&nbsp;    status = Status.EXPERIMENTAL,
+&nbsp;    since = &quot;1.8&quot;
+&nbsp;)
+&nbsp;public class UniqueIdTrackingListener implements TestExecutionListener {
+&nbsp;    public static final String LISTENER_ENABLED_PROPERTY_NAME = &quot;junit.platform.listeners.uid.tracking.enabled&quot;;
+&nbsp;    public static final String OUTPUT_DIR_PROPERTY_NAME = &quot;junit.platform.listeners.uid.tracking.output.dir&quot;;
+&nbsp;    public static final String OUTPUT_FILE_PREFIX_PROPERTY_NAME = &quot;junit.platform.listeners.uid.tracking.output.file.prefix&quot;;
+&nbsp;    public static final String DEFAULT_OUTPUT_FILE_PREFIX = &quot;junit-platform-unique-ids&quot;;
+&nbsp;    private final Logger logger = LoggerFactory.getLogger(UniqueIdTrackingListener.class);
+&nbsp;    private final List&lt;String&gt; uniqueIds = new ArrayList();
+&nbsp;    private boolean enabled;
+&nbsp;
+&nbsp;    public UniqueIdTrackingListener() {
+&nbsp;    }
+&nbsp;
+&nbsp;    public void testPlanExecutionStarted(TestPlan testPlan) {
+&nbsp;        this.enabled = (Boolean)testPlan.getConfigurationParameters().getBoolean(&quot;junit.platform.listeners.uid.tracking.enabled&quot;).orElse(false);
+&nbsp;    }
+&nbsp;
+&nbsp;    public void executionSkipped(TestIdentifier testIdentifier, String reason) {
+&nbsp;        this.trackTestUid(testIdentifier);
+&nbsp;    }
+&nbsp;
+&nbsp;    public void executionFinished(TestIdentifier testIdentifier, TestExecutionResult testExecutionResult) {
+&nbsp;        this.trackTestUid(testIdentifier);
+&nbsp;    }
+&nbsp;
+&nbsp;    private void trackTestUid(TestIdentifier testIdentifier) {
+&nbsp;        if (this.enabled &amp;&amp; testIdentifier.isTest()) {
+&nbsp;            this.uniqueIds.add(testIdentifier.getUniqueId());
+&nbsp;        }
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    public void testPlanExecutionFinished(TestPlan testPlan) {
+&nbsp;        if (this.enabled) {
+&nbsp;            Path outputFile;
+&nbsp;            try {
+&nbsp;                outputFile = this.createOutputFile(testPlan.getConfigurationParameters());
+&nbsp;            } catch (Exception var9) {
+&nbsp;                this.logger.error(var9, () -&gt; {
+&nbsp;                    return &quot;Failed to create output file&quot;;
+&nbsp;                });
+&nbsp;                return;
+&nbsp;            }
+&nbsp;
+&nbsp;            this.logger.debug(() -&gt; {
+&nbsp;                return &quot;Writing unique IDs to output file &quot; + outputFile.toAbsolutePath();
+&nbsp;            });
+&nbsp;
+&nbsp;            try {
+&nbsp;                PrintWriter writer = new PrintWriter(Files.newBufferedWriter(outputFile, StandardCharsets.UTF_8));
+&nbsp;
+&nbsp;                try {
+&nbsp;                    List var10000 = this.uniqueIds;
+&nbsp;                    Objects.requireNonNull(writer);
+&nbsp;                    var10000.forEach(writer::println);
+&nbsp;                    writer.flush();
+&nbsp;                } catch (Throwable var7) {
+&nbsp;                    try {
+&nbsp;                        writer.close();
+&nbsp;                    } catch (Throwable var6) {
+&nbsp;                        var7.addSuppressed(var6);
+&nbsp;                    }
+&nbsp;
+&nbsp;                    throw var7;
+&nbsp;                }
+&nbsp;
+&nbsp;                writer.close();
+&nbsp;            } catch (IOException var8) {
+&nbsp;                this.logger.error(var8, () -&gt; {
+&nbsp;                    return &quot;Failed to write unique IDs to output file &quot; + outputFile.toAbsolutePath();
+&nbsp;                });
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    private Path createOutputFile(ConfigurationParameters configurationParameters) {
+&nbsp;        String prefix = (String)configurationParameters.get(&quot;junit.platform.listeners.uid.tracking.output.file.prefix&quot;).orElse(&quot;junit-platform-unique-ids&quot;);
+&nbsp;        return OutputDir.create(configurationParameters.get(&quot;junit.platform.listeners.uid.tracking.output.dir&quot;)).createFile(prefix, &quot;txt&quot;);
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-24 08:58</div>
+</div>
+</body>
+</html>

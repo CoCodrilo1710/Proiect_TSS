@@ -1,0 +1,186 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > DefaultLauncher</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">org.junit.platform.launcher.core</a>
+</div>
+
+<h1>Coverage Summary for Class: DefaultLauncher (org.junit.platform.launcher.core)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">DefaultLauncher</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    55.6%
+  </span>
+  <span class="absValue">
+    (5/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (2/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    62.5%
+  </span>
+  <span class="absValue">
+    (15/24)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;//
+&nbsp;// Source code recreated from a .class file by IntelliJ IDEA
+&nbsp;// (powered by FernFlower decompiler)
+&nbsp;//
+&nbsp;
+&nbsp;package org.junit.platform.launcher.core;
+&nbsp;
+&nbsp;import java.util.Collection;
+&nbsp;import java.util.Collections;
+&nbsp;import org.junit.platform.commons.util.Preconditions;
+&nbsp;import org.junit.platform.engine.TestEngine;
+&nbsp;import org.junit.platform.launcher.Launcher;
+&nbsp;import org.junit.platform.launcher.LauncherDiscoveryListener;
+&nbsp;import org.junit.platform.launcher.LauncherDiscoveryRequest;
+&nbsp;import org.junit.platform.launcher.PostDiscoveryFilter;
+&nbsp;import org.junit.platform.launcher.TestExecutionListener;
+&nbsp;import org.junit.platform.launcher.TestPlan;
+&nbsp;import org.junit.platform.launcher.core.EngineDiscoveryOrchestrator.Phase;
+&nbsp;
+&nbsp;class DefaultLauncher implements Launcher {
+&nbsp;    private final LauncherListenerRegistry listenerRegistry = new LauncherListenerRegistry();
+&nbsp;    private final EngineExecutionOrchestrator executionOrchestrator;
+&nbsp;    private final EngineDiscoveryOrchestrator discoveryOrchestrator;
+&nbsp;
+&nbsp;    DefaultLauncher(Iterable&lt;TestEngine&gt; testEngines, Collection&lt;PostDiscoveryFilter&gt; postDiscoveryFilters) {
+&nbsp;        this.executionOrchestrator = new EngineExecutionOrchestrator(this.listenerRegistry.testExecutionListeners);
+&nbsp;        Preconditions.condition(testEngines != null &amp;&amp; testEngines.iterator().hasNext(), () -&gt; {
+&nbsp;            return &quot;Cannot create Launcher without at least one TestEngine; consider adding an engine implementation JAR to the classpath&quot;;
+&nbsp;        });
+&nbsp;        Preconditions.notNull(postDiscoveryFilters, &quot;PostDiscoveryFilter array must not be null&quot;);
+&nbsp;        Preconditions.containsNoNullElements(postDiscoveryFilters, &quot;PostDiscoveryFilter array must not contain null elements&quot;);
+&nbsp;        this.discoveryOrchestrator = new EngineDiscoveryOrchestrator(testEngines, Collections.unmodifiableCollection(postDiscoveryFilters), this.listenerRegistry.launcherDiscoveryListeners);
+&nbsp;    }
+&nbsp;
+&nbsp;    public void registerLauncherDiscoveryListeners(LauncherDiscoveryListener... listeners) {
+&nbsp;        this.listenerRegistry.launcherDiscoveryListeners.addAll(listeners);
+&nbsp;    }
+&nbsp;
+&nbsp;    public void registerTestExecutionListeners(TestExecutionListener... listeners) {
+<b class="fc">&nbsp;        this.listenerRegistry.testExecutionListeners.addAll(listeners);</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    public TestPlan discover(LauncherDiscoveryRequest discoveryRequest) {
+&nbsp;        Preconditions.notNull(discoveryRequest, &quot;LauncherDiscoveryRequest must not be null&quot;);
+&nbsp;        return InternalTestPlan.from(this.discover(discoveryRequest, Phase.DISCOVERY));
+&nbsp;    }
+&nbsp;
+&nbsp;    public void execute(LauncherDiscoveryRequest discoveryRequest, TestExecutionListener... listeners) {
+&nbsp;        Preconditions.notNull(discoveryRequest, &quot;LauncherDiscoveryRequest must not be null&quot;);
+&nbsp;        Preconditions.notNull(listeners, &quot;TestExecutionListener array must not be null&quot;);
+&nbsp;        Preconditions.containsNoNullElements(listeners, &quot;individual listeners must not be null&quot;);
+&nbsp;        this.execute(InternalTestPlan.from(this.discover(discoveryRequest, Phase.EXECUTION)), listeners);
+<b class="fc">&nbsp;    }</b>
+<b class="pc">&nbsp;</b>
+<b class="nc">&nbsp;    public void execute(TestPlan testPlan, TestExecutionListener... listeners) {</b>
+&nbsp;        Preconditions.notNull(testPlan, &quot;TestPlan must not be null&quot;);
+<b class="fc">&nbsp;        Preconditions.condition(testPlan instanceof InternalTestPlan, &quot;TestPlan was not returned by this Launcher&quot;);</b>
+<b class="fc">&nbsp;        Preconditions.notNull(listeners, &quot;TestExecutionListener array must not be null&quot;);</b>
+&nbsp;        Preconditions.containsNoNullElements(listeners, &quot;individual listeners must not be null&quot;);
+<b class="fc">&nbsp;        this.execute((InternalTestPlan)testPlan, listeners);</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    private LauncherDiscoveryResult discover(LauncherDiscoveryRequest discoveryRequest, EngineDiscoveryOrchestrator.Phase phase) {
+&nbsp;        return this.discoveryOrchestrator.discover(discoveryRequest, phase);
+&nbsp;    }
+<b class="nc">&nbsp;</b>
+&nbsp;    private void execute(InternalTestPlan internalTestPlan, TestExecutionListener[] listeners) {
+&nbsp;        this.executionOrchestrator.execute(internalTestPlan, listeners);
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-24 08:58</div>
+</div>
+</body>
+</html>

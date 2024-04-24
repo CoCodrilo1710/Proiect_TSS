@@ -1,0 +1,502 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > LauncherConfigurationParameters</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">org.junit.platform.launcher.core</a>
+</div>
+
+<h1>Coverage Summary for Class: LauncherConfigurationParameters (org.junit.platform.launcher.core)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">LauncherConfigurationParameters</td>
+<td class="coverageStat">
+  <span class="percent">
+    61.5%
+  </span>
+  <span class="absValue">
+    (8/13)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    12.5%
+  </span>
+  <span class="absValue">
+    (1/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    47.5%
+  </span>
+  <span class="absValue">
+    (19/40)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">LauncherConfigurationParameters$Builder</td>
+<td class="coverageStat">
+  <span class="percent">
+    85.7%
+  </span>
+  <span class="absValue">
+    (6/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    83.3%
+  </span>
+  <span class="absValue">
+    (5/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    84%
+  </span>
+  <span class="absValue">
+    (21/25)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">LauncherConfigurationParameters$ParameterProvider</td>
+<td class="coverageStat">
+  <span class="percent">
+    60%
+  </span>
+  <span class="absValue">
+    (3/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    71.4%
+  </span>
+  <span class="absValue">
+    (5/7)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">LauncherConfigurationParameters$ParameterProvider$2</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (2/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    33.3%
+  </span>
+  <span class="absValue">
+    (2/6)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">LauncherConfigurationParameters$ParameterProvider$3</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (2/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    33.3%
+  </span>
+  <span class="absValue">
+    (2/6)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">LauncherConfigurationParameters$ParameterProvider$4</td>
+<td class="coverageStat">
+  <span class="percent">
+    40%
+  </span>
+  <span class="absValue">
+    (2/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    28.6%
+  </span>
+  <span class="absValue">
+    (2/7)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    60.5%
+  </span>
+  <span class="absValue">
+    (23/38)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    42.9%
+  </span>
+  <span class="absValue">
+    (6/14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    56%
+  </span>
+  <span class="absValue">
+    (51/91)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;//
+&nbsp;// Source code recreated from a .class file by IntelliJ IDEA
+&nbsp;// (powered by FernFlower decompiler)
+&nbsp;//
+&nbsp;
+&nbsp;package org.junit.platform.launcher.core;
+&nbsp;
+&nbsp;import java.io.InputStream;
+&nbsp;import java.net.URL;
+&nbsp;import java.net.URLConnection;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Collection;
+&nbsp;import java.util.Collections;
+&nbsp;import java.util.HashMap;
+&nbsp;import java.util.LinkedHashSet;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Map;
+&nbsp;import java.util.Objects;
+&nbsp;import java.util.Optional;
+&nbsp;import java.util.Properties;
+&nbsp;import java.util.Set;
+&nbsp;import java.util.stream.Collectors;
+&nbsp;import org.junit.platform.commons.logging.Logger;
+&nbsp;import org.junit.platform.commons.logging.LoggerFactory;
+&nbsp;import org.junit.platform.commons.util.ClassLoaderUtils;
+&nbsp;import org.junit.platform.commons.util.Preconditions;
+&nbsp;import org.junit.platform.commons.util.ToStringBuilder;
+&nbsp;import org.junit.platform.engine.ConfigurationParameters;
+&nbsp;
+&nbsp;class LauncherConfigurationParameters implements ConfigurationParameters {
+&nbsp;    private static final Logger logger = LoggerFactory.getLogger(LauncherConfigurationParameters.class);
+&nbsp;    private final List&lt;ParameterProvider&gt; providers;
+&nbsp;
+&nbsp;    static Builder builder() {
+&nbsp;        return new Builder();
+&nbsp;    }
+&nbsp;
+&nbsp;    private LauncherConfigurationParameters(List&lt;ParameterProvider&gt; providers) {
+<b class="fc">&nbsp;        this.providers = providers;</b>
+&nbsp;    }
+<b class="fc">&nbsp;</b>
+&nbsp;    public Optional&lt;String&gt; get(String key) {
+&nbsp;        return Optional.ofNullable(this.getProperty(key));
+<b class="fc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    public Optional&lt;Boolean&gt; getBoolean(String key) {
+&nbsp;        return this.get(key).map(Boolean::parseBoolean);
+&nbsp;    }
+<b class="fc">&nbsp;</b>
+<b class="fc">&nbsp;    public int size() {</b>
+&nbsp;        return this.providers.stream().mapToInt(ParameterProvider::size).sum();
+&nbsp;    }
+&nbsp;
+&nbsp;    public Set&lt;String&gt; keySet() {
+<b class="fc">&nbsp;        return (Set)this.providers.stream().map(ParameterProvider::keySet).flatMap(Collection::stream).collect(Collectors.toSet());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private String getProperty(String key) {
+&nbsp;        Preconditions.notBlank(key, &quot;key must not be null or blank&quot;);
+<b class="fc">&nbsp;        return (String)this.providers.stream().map((parameterProvider) -&gt; {</b>
+&nbsp;            return parameterProvider.getValue(key);
+&nbsp;        }).filter(Objects::nonNull).findFirst().orElse((Object)null);
+&nbsp;    }
+&nbsp;
+&nbsp;    public String toString() {
+<b class="nc">&nbsp;        return (new ToStringBuilder(this)).append(&quot;lookups&quot;, this.providers).toString();</b>
+<b class="nc">&nbsp;    }</b>
+<b class="nc">&nbsp;</b>
+&nbsp;    private static Properties loadClasspathResource(String configFileName) {
+&nbsp;        Properties props = new Properties();
+&nbsp;
+&nbsp;        try {
+<b class="nc">&nbsp;            ClassLoader classLoader = ClassLoaderUtils.getDefaultClassLoader();</b>
+<b class="nc">&nbsp;            Set&lt;URL&gt; resources = new LinkedHashSet(Collections.list(classLoader.getResources(configFileName)));</b>
+&nbsp;            if (!resources.isEmpty()) {
+&nbsp;                if (resources.size() &gt; 1) {
+&nbsp;                    logger.warn(() -&gt; {
+<b class="fc">&nbsp;                        return String.format(&quot;Discovered %d &#39;%s&#39; configuration files in the classpath; only the first will be used.&quot;, resources.size(), configFileName);</b>
+<b class="fc">&nbsp;                    });</b>
+<b class="fc">&nbsp;                }</b>
+<b class="fc">&nbsp;</b>
+<b class="fc">&nbsp;                URL configFileUrl = (URL)resources.iterator().next();</b>
+<b class="fc">&nbsp;                logger.config(() -&gt; {</b>
+&nbsp;                    return String.format(&quot;Loading JUnit Platform configuration parameters from classpath resource [%s].&quot;, configFileUrl);
+&nbsp;                });
+&nbsp;                URLConnection urlConnection = configFileUrl.openConnection();
+&nbsp;                urlConnection.setUseCaches(false);
+<b class="nc">&nbsp;                InputStream inputStream = urlConnection.getInputStream();</b>
+<b class="nc">&nbsp;</b>
+<b class="nc">&nbsp;                try {</b>
+&nbsp;                    props.load(inputStream);
+&nbsp;                } catch (Throwable var10) {
+<b class="fc">&nbsp;                    if (inputStream != null) {</b>
+&nbsp;                        try {
+<b class="fc">&nbsp;                            inputStream.close();</b>
+<b class="fc">&nbsp;                        } catch (Throwable var9) {</b>
+<b class="fc">&nbsp;                            var10.addSuppressed(var9);</b>
+&nbsp;                        }
+&nbsp;                    }
+<b class="fc">&nbsp;</b>
+&nbsp;                    throw var10;
+&nbsp;                }
+&nbsp;
+<b class="fc">&nbsp;                if (inputStream != null) {</b>
+<b class="fc">&nbsp;                    inputStream.close();</b>
+<b class="fc">&nbsp;                }</b>
+&nbsp;            }
+&nbsp;        } catch (Exception var11) {
+&nbsp;            logger.warn(var11, () -&gt; {
+<b class="fc">&nbsp;                return String.format(&quot;Failed to load JUnit Platform configuration parameters from classpath resource [%s].&quot;, configFileName);</b>
+<b class="fc">&nbsp;            });</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        return props;
+<b class="nc">&nbsp;    }</b>
+<b class="nc">&nbsp;</b>
+<b class="nc">&nbsp;    static final class Builder {</b>
+&nbsp;        private final Map&lt;String, String&gt; explicitParameters;
+&nbsp;        private boolean implicitProvidersEnabled;
+&nbsp;        private String configFileName;
+<b class="fc">&nbsp;        private ConfigurationParameters parentConfigurationParameters;</b>
+<b class="fc">&nbsp;</b>
+<b class="fc">&nbsp;        private Builder() {</b>
+&nbsp;            this.explicitParameters = new HashMap();
+&nbsp;            this.implicitProvidersEnabled = true;
+&nbsp;            this.configFileName = &quot;junit-platform.properties&quot;;
+<b class="fc">&nbsp;        }</b>
+<b class="pc">&nbsp;</b>
+<b class="nc">&nbsp;        Builder explicitParameters(Map&lt;String, String&gt; parameters) {</b>
+&nbsp;            Preconditions.notNull(parameters, &quot;configuration parameters must not be null&quot;);
+&nbsp;            this.explicitParameters.putAll(parameters);
+<b class="fc">&nbsp;            return this;</b>
+<b class="fc">&nbsp;        }</b>
+&nbsp;
+&nbsp;        Builder enableImplicitProviders(boolean enabled) {
+<b class="fc">&nbsp;            this.implicitProvidersEnabled = enabled;</b>
+<b class="fc">&nbsp;            return this;</b>
+<b class="fc">&nbsp;        }</b>
+&nbsp;
+<b class="fc">&nbsp;        Builder configFileName(String configFileName) {</b>
+&nbsp;            Preconditions.notBlank(configFileName, &quot;configFileName must not be null or blank&quot;);
+&nbsp;            this.configFileName = configFileName;
+&nbsp;            return this;
+&nbsp;        }
+&nbsp;
+&nbsp;        Builder parentConfigurationParameters(ConfigurationParameters parameters) {
+&nbsp;            Preconditions.notNull(parameters, &quot;parent configuration parameters must not be null&quot;);
+&nbsp;            this.parentConfigurationParameters = parameters;
+<b class="nc">&nbsp;            return this;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        LauncherConfigurationParameters build() {
+&nbsp;            List&lt;ParameterProvider&gt; parameterProviders = new ArrayList();
+&nbsp;            if (!this.explicitParameters.isEmpty()) {
+<b class="nc">&nbsp;                parameterProviders.add(LauncherConfigurationParameters.ParameterProvider.explicit(this.explicitParameters));</b>
+&nbsp;            }
+&nbsp;
+&nbsp;            if (this.parentConfigurationParameters != null) {
+&nbsp;                parameterProviders.add(LauncherConfigurationParameters.ParameterProvider.inherited(this.parentConfigurationParameters));
+&nbsp;            }
+&nbsp;
+&nbsp;            if (this.implicitProvidersEnabled) {
+&nbsp;                parameterProviders.add(LauncherConfigurationParameters.ParameterProvider.systemProperties());
+&nbsp;                parameterProviders.add(LauncherConfigurationParameters.ParameterProvider.propertiesFile(this.configFileName));
+&nbsp;            }
+&nbsp;
+&nbsp;            return new LauncherConfigurationParameters(parameterProviders);
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private interface ParameterProvider {
+&nbsp;        String getValue(String var1);
+&nbsp;
+&nbsp;        default int size() {
+&nbsp;            return 0;
+&nbsp;        }
+&nbsp;
+&nbsp;        Set&lt;String&gt; keySet();
+&nbsp;
+&nbsp;        static ParameterProvider explicit(final Map&lt;String, String&gt; configParams) {
+<b class="fc">&nbsp;            return new ParameterProvider() {</b>
+&nbsp;                public String getValue(String key) {
+&nbsp;                    return (String)configParams.get(key);
+&nbsp;                }
+<b class="fc">&nbsp;</b>
+&nbsp;                public int size() {
+<b class="nc">&nbsp;                    return configParams.size();</b>
+<b class="nc">&nbsp;                }</b>
+&nbsp;
+&nbsp;                public Set&lt;String&gt; keySet() {
+&nbsp;                    return configParams.keySet();
+&nbsp;                }
+&nbsp;
+<b class="nc">&nbsp;                public String toString() {</b>
+&nbsp;                    ToStringBuilder builder = new ToStringBuilder(&quot;explicit&quot;);
+&nbsp;                    Map var10000 = configParams;
+&nbsp;                    Objects.requireNonNull(builder);
+&nbsp;                    var10000.forEach(builder::append);
+<b class="nc">&nbsp;                    return builder.toString();</b>
+&nbsp;                }
+&nbsp;            };
+&nbsp;        }
+&nbsp;
+&nbsp;        static ParameterProvider systemProperties() {
+<b class="fc">&nbsp;            return new ParameterProvider() {</b>
+<b class="fc">&nbsp;                public String getValue(String key) {</b>
+<b class="fc">&nbsp;                    try {</b>
+&nbsp;                        return System.getProperty(key);
+&nbsp;                    } catch (Exception var3) {
+<b class="fc">&nbsp;                        return null;</b>
+&nbsp;                    }
+&nbsp;                }
+&nbsp;
+&nbsp;                public Set&lt;String&gt; keySet() {
+<b class="nc">&nbsp;                    return System.getProperties().stringPropertyNames();</b>
+&nbsp;                }
+&nbsp;
+&nbsp;                public String toString() {
+&nbsp;                    return &quot;systemProperties [...]&quot;;
+<b class="nc">&nbsp;                }</b>
+<b class="nc">&nbsp;            };</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;
+&nbsp;        static ParameterProvider propertiesFile(String configFileName) {
+&nbsp;            Preconditions.notBlank(configFileName, &quot;configFileName must not be null or blank&quot;);
+&nbsp;            final Properties properties = LauncherConfigurationParameters.loadClasspathResource(configFileName.trim());
+&nbsp;            return new ParameterProvider() {
+<b class="fc">&nbsp;                public String getValue(String key) {</b>
+&nbsp;                    return properties.getProperty(key);
+&nbsp;                }
+<b class="fc">&nbsp;</b>
+&nbsp;                public Set&lt;String&gt; keySet() {
+&nbsp;                    return properties.stringPropertyNames();
+&nbsp;                }
+&nbsp;
+&nbsp;                public String toString() {
+<b class="nc">&nbsp;                    ToStringBuilder builder = new ToStringBuilder(&quot;propertiesFile&quot;);</b>
+&nbsp;                    properties.stringPropertyNames().forEach((key) -&gt; {
+&nbsp;                        builder.append(key, this.getValue(key));
+&nbsp;                    });
+&nbsp;                    return builder.toString();
+<b class="nc">&nbsp;                }</b>
+&nbsp;            };
+&nbsp;        }
+&nbsp;
+&nbsp;        static ParameterProvider inherited(final ConfigurationParameters configParams) {
+<b class="nc">&nbsp;            return new ParameterProvider() {</b>
+<b class="nc">&nbsp;                public String getValue(String key) {</b>
+<b class="nc">&nbsp;                    return (String)configParams.get(key).orElse((Object)null);</b>
+&nbsp;                }
+&nbsp;
+&nbsp;                public int size() {
+&nbsp;                    return configParams.size();
+&nbsp;                }
+&nbsp;
+&nbsp;                public Set&lt;String&gt; keySet() {
+<b class="fc">&nbsp;                    return configParams.keySet();</b>
+&nbsp;                }
+&nbsp;
+<b class="fc">&nbsp;                public String toString() {</b>
+<b class="fc">&nbsp;                    ToStringBuilder builder = new ToStringBuilder(&quot;inherited&quot;);</b>
+&nbsp;                    builder.append(&quot;parent&quot;, configParams);
+<b class="pc">&nbsp;                    return builder.toString();</b>
+<b class="nc">&nbsp;                }</b>
+<b class="nc">&nbsp;            };</b>
+&nbsp;        }
+<b class="nc">&nbsp;    }</b>
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-24 08:58</div>
+</div>
+</body>
+</html>
