@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Getter
 public class TaskService {
@@ -117,16 +118,20 @@ public class TaskService {
     }
 
     public Task recommendTask(int priority, int timeEstimate) {
-        if(priority <= 0 || priority >= 3 || timeEstimate <= 0) {
-            throw new IllegalArgumentException("Invalid priority or time estimate");
+        if(priority < 1 || priority > 3) {
+            throw new IllegalArgumentException("Invalid priority");
         }
 
-        Priority priorityEnum = Priority.values()[priority];
+        if(timeEstimate <= 0) {
+            throw new IllegalArgumentException("Invalid time estimate");
+        }
+
+        Priority priorityEnum = Priority.fromLevel(priority);
 
         Task recommendedTask = null;
         List<Task> filteredTasks = tasks
                         .stream()
-                        .filter(task -> task.getPriority() == priorityEnum && task.getTimeEstimate() <= timeEstimate)
+                        .filter(task -> task.getPriority() == priorityEnum && task.getTimeEstimate() <= timeEstimate && task.getStatus() != Status.COMPLETE)
                         .toList();
 
         for (Task task : filteredTasks) {
@@ -136,7 +141,7 @@ public class TaskService {
         }
 
         if (recommendedTask == null) {
-            throw new IllegalStateException("No task with required found");
+            throw new NoSuchElementException("No task with required properties found");
         }
         return recommendedTask;
     }
