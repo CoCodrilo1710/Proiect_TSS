@@ -2,17 +2,12 @@ package suites;
 
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
-import tests.RecommendTaskEquivalencePartitioningTests;
+import org.junit.platform.suite.api.SuiteDisplayName;
 
 @Suite
+@SuiteDisplayName("Strategy Suite")
 @SelectClasses({
-        tests.BasicBoundaryValueAnalysisTests.class,
-        tests.BasicCoverageTests.class,
-        tests.BasicEquivalencePartitioningTests.class,
-        tests.FindWhatTaskToDoNextTestEquivalencePartitioningTests.class,
-        tests.FindWhatTaskToDoNextTestBoundaryValueAnalysisTests.class,
-        tests.FindWhatTaskToDoNextTestDecisionCoverageTests.class,
-        RecommendTaskEquivalencePartitioningTests.class
+        tests.FindWhatTaskToDoNextTestCoverageTests.class,
 })
 public class StrategySuite {
 }

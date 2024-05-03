@@ -2,13 +2,14 @@ package tests;
 
 import model.Priority;
 import model.Task;
-import services.TaskService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import services.TaskService;
 
 import java.util.NoSuchElementException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 public class RecommendTaskEquivalencePartitioningTests {
@@ -42,7 +43,8 @@ public class RecommendTaskEquivalencePartitioningTests {
 
     @Test
     void givenNegativeTimeEstimate_whenRecommendTask_thenThrowException() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> taskService.recommendTask(1, -1));
+        IllegalArgumentException exception =
+                assertThrows(IllegalArgumentException.class, () -> taskService.recommendTask(1, -1));
         assertEquals("Invalid time estimate", exception.getMessage());
     }
 
@@ -63,13 +65,15 @@ public class RecommendTaskEquivalencePartitioningTests {
 
     @Test
     void givenNonExistingTimeEstimate_whenRecommendTask_thenThrowException() {
-        NoSuchElementException exception =  assertThrows(NoSuchElementException.class, () -> taskService.recommendTask(3, 1));
+        NoSuchElementException exception =
+                assertThrows(NoSuchElementException.class, () -> taskService.recommendTask(3, 1));
         assertEquals("No task with required properties found", exception.getMessage());
     }
 
     @Test
     void givenNonExistingPriorityAndTimeEstimate_whenRecommendTask_thenThrowException() {
-        NoSuchElementException exception =  assertThrows(NoSuchElementException.class, () -> taskService.recommendTask(1, 1));
+        NoSuchElementException exception =
+                assertThrows(NoSuchElementException.class, () -> taskService.recommendTask(1, 1));
         assertEquals("No task with required properties found", exception.getMessage());
     }
 
@@ -77,7 +81,7 @@ public class RecommendTaskEquivalencePartitioningTests {
     void givenTooHighPriority_whenRecommendTask_thenThrowException() {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
                 () -> taskService.recommendTask(4,
-                20));
+                        20));
         assertEquals("Invalid priority", exception.getMessage());
     }
 }

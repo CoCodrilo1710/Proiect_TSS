@@ -78,11 +78,10 @@ public class TaskService {
     public Task findWhatTaskToDoNext(int numberOfTasks) {
         Task highestPriorityShortestEstimateTask = null;
 
-        //numberoftasks must be the same as the size of the lists
+        //numberOfTasks must be the same as the size of the lists
         if (numberOfTasks != tasks.size()) {
             throw new IllegalArgumentException("Number of tasks does not match the size of the tasks list");
-        }
-        else {
+        } else {
             // numberOfTasks must be between 1 and 20
             if (tasks.isEmpty() || numberOfTasks <= 0 || numberOfTasks > 20) {
                 throw new IllegalArgumentException("Invalid number of tasks or empty list");
@@ -90,17 +89,16 @@ public class TaskService {
 
             for (int i = 0; i < numberOfTasks; i++) {
                 Task task = tasks.get(i);
-
-
                 // make sure it's not completed
                 if (task.getStatus() != Status.COMPLETE) {
-
                     // if no prior task was selected, select task
                     if (highestPriorityShortestEstimateTask == null) {
                         highestPriorityShortestEstimateTask = task;
                     } else {
-                        // check to see if the task is of higher priority and if tasks have the same priority check time estimate
-                        if (task.getPriority().getLevel() > highestPriorityShortestEstimateTask.getPriority().getLevel()) {
+                        // check to see if the task is of higher priority and if tasks have the same priority check
+                        // time estimate
+                        if (task.getPriority().getLevel() >
+                                highestPriorityShortestEstimateTask.getPriority().getLevel()) {
                             highestPriorityShortestEstimateTask = task;
                         } else if (task.getPriority() == highestPriorityShortestEstimateTask.getPriority() &&
                                 task.getTimeEstimate() < highestPriorityShortestEstimateTask.getTimeEstimate()) {
@@ -114,15 +112,16 @@ public class TaskService {
                 throw new IllegalStateException("No available tasks to do");
             }
 
-        }return highestPriorityShortestEstimateTask;
+        }
+        return highestPriorityShortestEstimateTask;
     }
 
     public Task recommendTask(int priority, int timeEstimate) {
-        if(priority < 1 || priority > 3) {
+        if (priority < 1 || priority > 3) {
             throw new IllegalArgumentException("Invalid priority");
         }
 
-        if(timeEstimate <= 0) {
+        if (timeEstimate <= 0) {
             throw new IllegalArgumentException("Invalid time estimate");
         }
 
@@ -130,12 +129,13 @@ public class TaskService {
 
         Task recommendedTask = null;
         List<Task> filteredTasks = tasks
-                        .stream()
-                        .filter(task -> task.getPriority() == priorityEnum && task.getTimeEstimate() <= timeEstimate && task.getStatus() != Status.COMPLETE)
-                        .toList();
+                .stream()
+                .filter(task -> task.getPriority() == priorityEnum && task.getTimeEstimate() <= timeEstimate &&
+                        task.getStatus() != Status.COMPLETE)
+                .toList();
 
         for (Task task : filteredTasks) {
-            if(recommendedTask == null || task.getTimeEstimate() < recommendedTask.getTimeEstimate()) {
+            if (recommendedTask == null || task.getTimeEstimate() < recommendedTask.getTimeEstimate()) {
                 recommendedTask = task;
             }
         }
