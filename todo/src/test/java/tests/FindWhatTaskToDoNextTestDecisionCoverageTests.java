@@ -83,4 +83,15 @@ public class FindWhatTaskToDoNextTestDecisionCoverageTests {
         assertEquals(expectedTask, returnedTask);
     }
 
+    @Test
+    void givenDifferentNumberOfTasksAndTasksListSize_whenFindWhatTaskToDoNext_thenThrowException() {
+
+        taskService.addTask(new Task("Task 1", Priority.HIGH, 3));
+        taskService.addTask(new Task("Task 2", Priority.MEDIUM, 2));
+
+        Integer numberOfTasks = 3;
+
+        assertThrows(IllegalArgumentException.class, () -> taskService.findWhatTaskToDoNext(numberOfTasks));
+    }
+
 }
