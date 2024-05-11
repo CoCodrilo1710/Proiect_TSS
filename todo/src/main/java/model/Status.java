@@ -8,8 +8,7 @@ import lombok.Getter;
 public enum Status {
     NEW(1),
     IN_PROGRESS(2),
-    COMPLETE(3),
-    CANCELLED(4);
+    COMPLETE(3);
 
     private final int value;
 

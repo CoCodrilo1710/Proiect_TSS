@@ -26,7 +26,9 @@ public class App {
                 3. Remove task
                 4. See all tasks
                 5. See task
-                6. Exit
+                6. Give next uncompleted and highest priority task
+                7. Give next uncompleted and highest priority task with given time estimate
+                8. Save to JSON and exit
                 """);
     }
 
@@ -82,7 +84,6 @@ public class App {
                 1. NEW
                 2. IN PROGRESS
                 3. COMPLETED
-                4. CANCELLED
                 """);
         updated.setStatus(Status.fromLevel(scanner.nextInt()));
 
@@ -120,6 +121,20 @@ public class App {
             case 4 -> printTasks();
             case 5 -> seeTask();
             case 6 -> {
+                prettyPrint("How many tasks do you have?");
+                int taskCount = scanner.nextInt();
+                prettyPrint(taskService.findWhatTaskToDoNext(taskCount).toString());
+            }
+            case 7 -> {
+                prettyPrint("How many tasks do you have?");
+                int taskCount = scanner.nextInt();
+                prettyPrint("How many hours do you want to work?");
+                int hours = scanner.nextInt();
+                prettyPrint(taskService.recommendTask(taskCount, hours).toString());
+            }
+            case 8 -> {
+                saveToJson();
+                prettyPrint("Saved to JSON!");
                 prettyPrint("Goodbye!");
                 System.exit(0);
             }
