@@ -13,7 +13,8 @@ public class Task {
     private Status status;
     private Integer hourEstimate;
 
-    public Task() {}
+    public Task() {
+    }
 
     public Task(String description, Priority priority, Integer hourEstimate) {
         this.description = description;
@@ -24,7 +25,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return  "Description: " + description + '\n' +
+        return "Description: " + description + '\n' +
                 "Priority: " + priority + '\n' +
                 "Status: " + status + '\n';
     }

@@ -1,15 +1,8 @@
-import com.fasterxml.jackson.core.exc.StreamWriteException;
-import com.fasterxml.jackson.databind.DatabindException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import model.Priority;
 import model.Status;
 import model.Task;
 import services.TaskService;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class App {
@@ -18,30 +11,32 @@ public class App {
 
     public void prettyPrint(String text) {
         System.out.println("""
-=====================================================
-            """ + text + """
+                =====================================================
+                            """ + text + """
 
-=====================================================
-            """);
+                =====================================================
+                            """);
     }
-    
+
     public void printMenu() {
         prettyPrint("""
-            Menu:
-            1. Add task
-            2. Update task
-            3. Remove task
-            4. See all tasks
-            5. See task
-            6. Exit
-            """);
+                Menu:
+                1. Add task
+                2. Update task
+                3. Remove task
+                4. See all tasks
+                5. See task
+                6. Give next uncompleted and highest priority task
+                7. Give next uncompleted and highest priority task with given time estimate
+                8. Save to JSON and exit
+                """);
     }
 
     public void printGreeting() {
         prettyPrint("""
-            Welcome to the world's most
-                complex to-do app!
-            """);
+                Welcome to the world's most
+                    complex to-do app!
+                """);
     }
 
     public void addTask() {
@@ -53,22 +48,22 @@ public class App {
         }
 
         prettyPrint("""
-            Enter task priority:
-            1. LOW
-            2. MEDIUM
-            3. HIGH
-            """);
+                Enter task priority:
+                1. LOW
+                2. MEDIUM
+                3. HIGH
+                """);
         Priority priority = Priority.fromLevel(scanner.nextInt());
 
         prettyPrint("""
-            Enter task hour estimate:
-            """);
+                Enter task hour estimate:
+                """);
         Integer hours = scanner.nextInt();
 
         Task task = new Task(description, priority, hours);
         taskService.addTask(task);
     }
-    
+
     public void updateTask() {
         prettyPrint("Enter task number:");
         int index = scanner.nextInt() - 1;
@@ -76,21 +71,20 @@ public class App {
         Task updated = new Task();
 
         prettyPrint("""
-            Enter task's new priority:
-            1. LOW
-            2. MEDIUM
-            3. HIGH
-            """);
+                Enter task's new priority:
+                1. LOW
+                2. MEDIUM
+                3. HIGH
+                """);
         Priority priority = Priority.fromLevel(scanner.nextInt());
         updated.setPriority(priority);
 
         prettyPrint("""
-            Enter task's new status:
-            1. NEW
-            2. IN PROGRESS
-            3. COMPLETED
-            4. CANCELLED
-            """);
+                Enter task's new status:
+                1. NEW
+                2. IN PROGRESS
+                3. COMPLETED
+                """);
         updated.setStatus(Status.fromLevel(scanner.nextInt()));
 
         prettyPrint("Enter task's new hour estimate:");
@@ -127,6 +121,20 @@ public class App {
             case 4 -> printTasks();
             case 5 -> seeTask();
             case 6 -> {
+                prettyPrint("How many tasks do you have?");
+                int taskCount = scanner.nextInt();
+                prettyPrint(taskService.findWhatTaskToDoNext(taskCount).toString());
+            }
+            case 7 -> {
+                prettyPrint("How many tasks do you have?");
+                int taskCount = scanner.nextInt();
+                prettyPrint("How many hours do you want to work?");
+                int hours = scanner.nextInt();
+                prettyPrint(taskService.recommendTask(taskCount, hours).toString());
+            }
+            case 8 -> {
+                saveToJson();
+                prettyPrint("Saved to JSON!");
                 prettyPrint("Goodbye!");
                 System.exit(0);
             }

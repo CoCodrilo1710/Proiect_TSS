@@ -24,7 +24,7 @@ public class FindWhatTaskToDoNextTestEquivalencePartitioningTests {
         taskService.addTask(new Task("task2", Priority.HIGH, 2));
         taskService.addTask(new Task("task3", Priority.HIGH, 3));
 
-        Integer numberOfTasks = 3;
+        int numberOfTasks = 3;
         Task returnedTask = taskService.findWhatTaskToDoNext(numberOfTasks);
         Task expectedTask = taskService.getByIndex(0);
 
@@ -32,15 +32,15 @@ public class FindWhatTaskToDoNextTestEquivalencePartitioningTests {
     }
 
     @Test
-    void givenTooLowIndex_whenFindWhatTaskToDoNext_thenThrowException(){
+    void givenTooLowIndex_whenFindWhatTaskToDoNext_thenThrowException() {
         // prepare data
-        Integer numberOfTasks = 0;
+        int numberOfTasks = 0;
 
         assertThrows(IllegalArgumentException.class, () -> taskService.findWhatTaskToDoNext(numberOfTasks));
     }
 
     @Test
-    void givenTooHighIndex_whenFindWhatTaskToDoNext_thenThrowException(){
+    void givenTooHighIndex_whenFindWhatTaskToDoNext_thenThrowException() {
         taskService.addTask(new Task("Task 1", Priority.HIGH, 3));
         taskService.addTask(new Task("Task 2", Priority.MEDIUM, 2));
         taskService.addTask(new Task("Task 3", Priority.LOW, 1));
@@ -62,11 +62,9 @@ public class FindWhatTaskToDoNextTestEquivalencePartitioningTests {
         taskService.addTask(new Task("Task 20", Priority.MEDIUM, 14));
         taskService.addTask(new Task("Task 21", Priority.LOW, 13));
 
-        Integer numberOfTasks = 21;
+        int numberOfTasks = 21;
 
         assertThrows(IllegalArgumentException.class, () -> taskService.findWhatTaskToDoNext(numberOfTasks));
-
-
     }
 
 }
