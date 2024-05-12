@@ -8,6 +8,9 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 @SuiteDisplayName("Strategy Suite")
 @SelectClasses({
         tests.FindWhatTaskToDoNextTestCoverageTests.class,
+        tests.FindWhatTaskToDoNextTestDecisionCoverageTests.class,
+        tests.FindWhatTaskToDoNextTestEquivalencePartitioningTests.class,
+        tests.FindWhatTaskToDoNextMutationTests.class
 })
 public class StrategySuite {
 }

@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="StrategySuite" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+    <module name="todo" />
+    <extension name="coverage" sample_coverage="false" track_test_folders="true" />
+    <option name="PACKAGE_NAME" value="suites" />
+    <option name="MAIN_CLASS_NAME" value="suites.StrategySuite" />
+    <option name="METHOD_NAME" value="" />
+    <option name="TEST_OBJECT" value="class" />
+    <option name="TEST_SEARCH_SCOPE">
+      <value defaultName="wholeProject" />
+    </option>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

@@ -64,10 +64,6 @@ public class TaskService {
                 directory.mkdirs();
             }
             objectMapper.writeValue(new File(Consts.SAVE_FILE_LOCATION), tasks);
-
-
-            //System.out.println("Task saved to file");
-
         } catch (StreamWriteException | DatabindException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {

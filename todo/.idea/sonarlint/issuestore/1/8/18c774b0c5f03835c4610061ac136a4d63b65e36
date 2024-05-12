@@ -1,7 +1,10 @@
 
-	java:S112F"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8ÿ‹ıè1J$f4a1c5d5-b78f-4ea2-901f-f860f562c19f
+	java:S112D"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8èõôğ1J$dd47136c-7860-4d0c-a164-92aa1eb11d59
 œ
-java:S1192"TDefine a constant instead of duplicating this literal "Invalid task number" 3 times.(îÃ†şûÿÿÿÿ8‚‘‹ıè1J$475d92b2-96d1-4d4d-be7f-915c6db00951
-m	java:S1060"+Replace this use of System.out by a logger.(ñ§é‡8¨‘‹ıè1J$77586a7e-4cde-4e72-aeff-193611932669
-G	java:S1064"+Replace this use of System.out by a logger.(¾ã8‚’Ùıè1
-ƒ	java:S125C"<This block of commented-out lines of code should be removed.(÷í¦Úûÿÿÿÿ8Ë‘‹ıè1J$31cd5940-92dc-4f46-bcb7-879dccb450ce
+java:S1192"TDefine a constant instead of duplicating this literal "Invalid task number" 3 times.(îÃ†şûÿÿÿÿ8ëõôğ1J$2e5bd0fb-ee86-497b-83df-949cb4354337
+m	java:S1062"+Replace this use of System.out by a logger.(ñ§é‡8çõôğ1J$73baa2b1-1373-43d4-841c-34d350e1f8d3
+m	java:S1066"+Replace this use of System.out by a logger.(¾ã8éõôğ1J$c60c608a-af24-43bb-922e-a29188e44074
+•
+java:S3776J"RRefactor this method to reduce its Cognitive Complexity from 24 to the 15 allowed.(ºÔâ8©õôğ1J$0aa08b98-1485-4cfe-b2d1-4b9bd2d45644
+”
+java:S1871d"LThis branch's code block is the same as the block for the branch on line 97.(¼şèªıÿÿÿÿ8±õôğ1J$c3f1c30a-1467-4df9-a2e6-2234fe078f22
