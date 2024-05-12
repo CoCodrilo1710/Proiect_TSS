@@ -28,10 +28,10 @@ Documentația proiectului conține mai multe detalii despre aplicație și despr
   - Analiză și comparare a testelor folosind Codium
   - Bibliografie
     
-Documentația poate fi citită [aici]().
+Documentația poate fi citită [aici](https://github.com/CoCodrilo1710/Proiect_TSS/blob/main/Testare%20unitar%C4%83%20%C3%AEn%20Java.pdf).
 
 ## Prezentarea PowerPoint
-Prezentarea PowerPoint vine în sprijinul prezentării de la examen și este disponibilă [aici]().
+Prezentarea PowerPoint vine în sprijinul prezentării de la examen și este disponibilă [aici](https://github.com/CoCodrilo1710/Proiect_TSS/blob/main/Testare%20Unitara%20in%20Java.pptx).
 
 ## Demo-ul aplicației 
 Demo-ul aplicației prezintă cele mai importante funcționalități ale aplicației și poate fi vizualizat [aici](https://youtu.be/b8ghqzlam2Q).
