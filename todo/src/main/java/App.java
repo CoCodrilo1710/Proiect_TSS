@@ -126,11 +126,12 @@ public class App {
                 prettyPrint(taskService.findWhatTaskToDoNext(taskCount).toString());
             }
             case 7 -> {
-                prettyPrint("How many tasks do you have?");
-                int taskCount = scanner.nextInt();
+                prettyPrint("What priority do you want to select for the task you want to work on?");
+                int taskPrio = scanner.nextInt();
+                scanner.nextLine();
                 prettyPrint("How many hours do you want to work?");
                 int hours = scanner.nextInt();
-                prettyPrint(taskService.recommendTask(taskCount, hours).toString());
+                prettyPrint(taskService.recommendTask(taskPrio, hours).toString());
             }
             case 8 -> {
                 saveToJson();
@@ -151,7 +152,7 @@ public class App {
 
         int currentOption = 0;
 
-        while (currentOption != 7) {
+        while (currentOption != 8) {
             printMenu();
 
             try {
