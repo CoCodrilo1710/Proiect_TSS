@@ -16,7 +16,8 @@ digraph AppFlow {
     chooseOption -> printTasks [label="4"];
     chooseOption -> seeTask [label="5"];
     chooseOption -> findWhatTaskToDoNext [label="6"];
-    chooseOption -> end [label="7"];
+    chooseOption -> recommendTask [label="7"]
+    chooseOption -> end [label="8"];
 
     addTask -> printMenu;
     updateTask -> printMenu;
@@ -24,6 +25,7 @@ digraph AppFlow {
     printTasks -> printMenu;
     seeTask -> printMenu;
     findWhatTaskToDoNext -> printMenu;
+    recommendTask -> printMenu;
 
     printMenu -> handleInvalidInput [label="exception"];
     handleInvalidInput -> printMenu;
@@ -35,4 +37,5 @@ digraph AppFlow {
     TaskService -> printTasks;
     TaskService -> saveToJson;
     TaskService -> findWhatTaskToDoNext;
+    TaskService -> recommendTask;
 }
