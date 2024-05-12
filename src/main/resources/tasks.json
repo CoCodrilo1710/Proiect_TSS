@@ -1,1 +1,1 @@
-[{"description":"task1","priority":"LOW","status":"NEW","hourEstimate":1,"timeEstimate":1},{"description":"task2","priority":"MEDIUM","status":"NEW","hourEstimate":2,"timeEstimate":2},{"description":"task3","priority":"HIGH","status":"NEW","hourEstimate":3,"timeEstimate":3}]
+[{"description":"task1","priority":"LOW","status":"NEW","hourEstimate":1,"timeEstimate":1},{"description":"task2","priority":"MEDIUM","status":"NEW","hourEstimate":2,"timeEstimate":2},{"description":null,"priority":"HIGH","status":"COMPLETE","hourEstimate":3,"timeEstimate":3}]

@@ -162,7 +162,8 @@ public class App {
 
                 saveToJson();
             } catch (Exception e) {
-                System.out.println("Invalid input. Please enter a number.");
+                System.out.printf("Error: %s%n", e.getMessage());
+                System.out.println("Error: Invalid option. Please try again.");
                 currentOption = 0;
             }
 
