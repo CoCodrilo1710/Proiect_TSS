@@ -1,10 +1,10 @@
 # To-Do List App 📝
 
-Acest repository cuprinde implementarea unei aplicații de tip To-Do List, implementată integral în Java pentru cursul opțional de Testare a Sistemelor Software. Aplicația permite utilizatorilor să creeze liste de taskuri, fiecare task având propria descriere, status, estimare de timp și prioritate.
+Acest repository cuprinde implementarea unei aplicații de tip To-Do List, scrisă integral în Java pentru cursul opțional de Testare a Sistemelor Software. Aplicația permite utilizatorilor să creeze liste de taskuri, fiecare task având propria descriere, status, estimare de timp și prioritate.
 
 ## Testarea aplicației
 
-Fiind un proiect dezvoltat pentru a ilustra testarea unitară în Java, aplicația To-Do List cuprinde teste care ilustrează diverse strategii de testare precum: 
+Fiind un proiect dezvoltat pentru a ilustra testarea unitară în Java, aplicația To-Do List cuprinde teste care pun în evidență diverse strategii de testare precum: 
   - partitionarea în clase de echivalență
   - analiza valorilor de frontieră
   - acoperire la nivel de instrucțiune, de ramură și de condiție
@@ -12,7 +12,7 @@ Fiind un proiect dezvoltat pentru a ilustra testarea unitară în Java, aplicaț
   - analiză raport creat de generatorul de mutanți
   - teste suplimentare pentru a omorî 2 dintre mutanții neechivalenți rămași în viață
 
-Intreaga implementare a aplicației o puteți găsi [aici](https://github.com/CoCodrilo1710/Proiect_TSS/tree/main/todo).
+Întreaga implementare a aplicației o puteți găsi [aici](https://github.com/CoCodrilo1710/Proiect_TSS/tree/main/todo).
 
 ## Graful 
 
